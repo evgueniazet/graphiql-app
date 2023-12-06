@@ -11,7 +11,7 @@
     "coverage": "jest --coverage",
     "format:fix": "prettier --write .",
     "format": "prettier --check .",
-    "prepare": "cd .. && husky install rs-react-task/.husky"
+    "prepare": "husky install"
   },
   "dependencies": {
     "next": "14.0.3",
