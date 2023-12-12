@@ -17,7 +17,7 @@ class CustomError extends Error {
   }
 }
 
-//TODO:replace firebaseConfig to .ent file
+//TODO:replace firebaseConfig to .env file
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDIXJ5YT7hoNbBFqK3TBcV41-TzIO-7n7w',
@@ -38,8 +38,21 @@ const logInWithEmailAndPassword = async (email: string, password: string) => {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
     console.error(err);
-    //TODO: add custom error
-    alert('Error when trying to log in');
+
+    if (err instanceof Error) {
+      const errorCode = (err as CustomError).code;
+
+      switch (errorCode) {
+        case 'auth/user-not-found':
+          alert('User with this email address not found.');
+          break;
+        case 'auth/wrong-password':
+          alert('Incorrect password.');
+          break;
+        default:
+          alert('Error when trying to log in.');
+      }
+    }
   }
 };
 
@@ -58,8 +71,8 @@ const registerWithEmailAndPassword = async (
 
     alert(`регистрация прошла успешно! Email: ${email}, password: ${password}`);
   } catch (err) {
-    if (err instanceof CustomError) {
-      if (err.code === 'auth/email-already-in-use') {
+    if (err instanceof Error) {
+      if ((err as CustomError).code === 'auth/email-already-in-use') {
         //TODO: add custom error
         alert('A user with this email address has already been registered!');
       } else {
