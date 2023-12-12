@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       HomePage
-      <Button type="button" text="Log Out" onClick={handleLogout}></Button>
+      <Button type="button" text="Log Out" onClick={handleLogout} className={''}></Button>
     </>
   );
 }

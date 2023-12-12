@@ -86,7 +86,7 @@ const SignUp = () => {
           )}
         </div>
 
-        <Button type="submit" text="Sign Up" onClick={register}></Button>
+        <Button type="submit" text="Sign Up" onClick={register} className={''}></Button>
       </div>
     </div>
   );

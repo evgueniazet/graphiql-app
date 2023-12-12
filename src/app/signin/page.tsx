@@ -88,7 +88,7 @@ const SignIn = () => {
           )}
         </div>
 
-        <Button type="submit" text="Sign In" onClick={signIn}></Button>
+        <Button type="submit" text="Sign In" onClick={signIn} className={''}></Button>
       </div>
     </div>
   );
