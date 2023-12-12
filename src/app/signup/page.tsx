@@ -41,37 +41,43 @@ const SignUp = () => {
     if (loading) return;
     if (user) redirect('/');
   }, [user, loading]);
+
   return (
     <div className={styles.register}>
       <h1 className={styles.title}>Sign Up</h1>
       <div className={styles.register__container}>
-        <input
-          type="text"
-          className={styles.input}
-          value={email}
-          onChange={(e) =>
-            handleChange(setEmail, validateEmail, e.target.value)
-          }
-          placeholder="E-mail Address"
-        />
-        {emailError && <span className={styles.error}>{emailError}</span>}
+        <div className={styles.input_container}>
+          <input
+            type="text"
+            className={styles.input}
+            value={email}
+            onChange={(e) =>
+              handleChange(setEmail, validateEmail, e.target.value)
+            }
+            placeholder="E-mail Address"
+          />
+          {emailError && <span className={styles.error}>{emailError}</span>}
+        </div>
 
-        <input
-          type="password"
-          className={styles.input}
-          value={password}
-          onChange={(e) =>
-            handleChange(setPassword, validatePassword, e.target.value)
-          }
-          placeholder="Password"
-        />
-        {passwordError && <span className={styles.error}>{passwordError}</span>}
+        <div className={styles.input_container}>
+          <input
+            type="password"
+            className={styles.input}
+            value={password}
+            onChange={(e) =>
+              handleChange(setPassword, validatePassword, e.target.value)
+            }
+            placeholder="Password"
+          />
+          {passwordError && (
+            <span className={styles.error}>{passwordError}</span>
+          )}
+        </div>
 
         <Button
           type="submit"
           text="Sign Up"
           onClick={register}
-          className={styles.button}
         ></Button>
       </div>
     </div>

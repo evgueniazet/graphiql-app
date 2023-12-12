@@ -46,34 +46,37 @@ const SignIn = () => {
     <div className={styles.login}>
       <h1 className={styles.title}>Sign In</h1>
       <div className={styles.login__container}>
-        <input
-          type="text"
-          className={styles.input}
-          value={email}
-          onChange={(e) =>
-            handleChange(setEmail, validateEmail, e.target.value)
-          }
-          placeholder="E-mail Address"
-        />
-        {emailError && <span className={styles.error}>{emailError}</span>}
+        <div className={styles.input_container}>
+          {' '}
+          <input
+            type="text"
+            className={styles.input}
+            value={email}
+            onChange={(e) =>
+              handleChange(setEmail, validateEmail, e.target.value)
+            }
+            placeholder="E-mail Address"
+          />
+          {emailError && <span className={styles.error}>{emailError}</span>}
+        </div>
 
-        <input
-          type="password"
-          className={styles.input}
-          value={password}
-          onChange={(e) =>
-            handleChange(setPassword, validatePassword, e.target.value)
-          }
-          placeholder="Password"
-        />
-        {passwordError && <span className={styles.error}>{passwordError}</span>}
+        <div className={styles.input_container}>
+          {' '}
+          <input
+            type="password"
+            className={styles.input}
+            value={password}
+            onChange={(e) =>
+              handleChange(setPassword, validatePassword, e.target.value)
+            }
+            placeholder="Password"
+          />
+          {passwordError && (
+            <span className={styles.error}>{passwordError}</span>
+          )}
+        </div>
 
-        <Button
-          type="submit"
-          text="Sign In"
-          onClick={signIn}
-          className={styles.button}
-        ></Button>
+        <Button type="submit" text="Sign In" onClick={signIn}></Button>
       </div>
     </div>
   );
