@@ -2,10 +2,9 @@ const validatePassword = (
   value: string,
   setPasswordError: React.Dispatch<React.SetStateAction<string>>
 ): boolean => {
-  const isValid =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&\u0020-\u007E]{8,}$/.test(
-      value
-    );
+  const isValid = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[^\s]{8,}$/.test(
+    value
+  );
 
   setPasswordError(
     isValid
