@@ -5,6 +5,24 @@
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
+  --background-main: #f5f5f5;
+  --background-editor: #252526;
+  --background-gradient: linear-gradient(to bottom, #4b77be, #6c7a89);
+
+  --text-main: #333333;
+  --text-secondary: #d4d4d4;
+  --text-accent: #007acc;
+  --text-light: #ffffff;
+
+  --button-main: #4fa1f3;
+  --button-hover: #3d8ec9;
+  --button-disabled: #a3c2e0;
+
+  --accent-warning: #ffa500;
+
+  --code-keyword: #4fa1f3;
+  --code-string: #fafbfd;
+
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
