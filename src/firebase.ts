@@ -36,7 +36,6 @@ const db = getFirestore(app);
 const logInWithEmailAndPassword = async (email: string, password: string) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    console.log('sign in successfully');
   } catch (err) {
     console.error(err);
     //TODO: add custom error
