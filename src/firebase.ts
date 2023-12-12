@@ -69,7 +69,9 @@ const registerWithEmailAndPassword = async (
       email,
     });
 
-    alert(`регистрация прошла успешно! Email: ${email}, password: ${password}`);
+    alert(
+      `Registration was successful! Email: ${email}, password: ${password}`
+    );
   } catch (err) {
     if (err instanceof Error) {
       if ((err as CustomError).code === 'auth/email-already-in-use') {

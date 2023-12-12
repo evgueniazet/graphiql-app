@@ -25,7 +25,16 @@ const SignUp = () => {
     value: string
   ) => {
     setter(value);
-    validator(value, setter === setPassword ? setPasswordError : setEmailError);
+    if (!value.trim()) {
+      setter === setPassword
+        ? setPasswordError('Password is required')
+        : setEmailError('Email is required');
+    } else {
+      validator(
+        value,
+        setter === setPassword ? setPasswordError : setEmailError
+      );
+    }
   };
 
   const register = () => {
@@ -34,6 +43,9 @@ const SignUp = () => {
 
     if (isEmailValid && isPasswordValid) {
       registerWithEmailAndPassword(email, password);
+    } else {
+      if (!email.trim()) setEmailError('Email is required');
+      if (!password.trim()) setPasswordError('Password is required');
     }
   };
 
@@ -74,11 +86,7 @@ const SignUp = () => {
           )}
         </div>
 
-        <Button
-          type="submit"
-          text="Sign Up"
-          onClick={register}
-        ></Button>
+        <Button type="submit" text="Sign Up" onClick={register}></Button>
       </div>
     </div>
   );

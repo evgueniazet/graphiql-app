@@ -25,7 +25,16 @@ const SignIn = () => {
     value: string
   ) => {
     setter(value);
-    validator(value, setter === setPassword ? setPasswordError : setEmailError);
+    if (!value.trim()) {
+      setter === setPassword
+        ? setPasswordError('Password is required')
+        : setEmailError('Email is required');
+    } else {
+      validator(
+        value,
+        setter === setPassword ? setPasswordError : setEmailError
+      );
+    }
   };
 
   const signIn = () => {
@@ -34,6 +43,9 @@ const SignIn = () => {
 
     if (isEmailValid && isPasswordValid) {
       logInWithEmailAndPassword(email, password);
+    } else {
+      if (!email.trim()) setEmailError('Email is required');
+      if (!password.trim()) setPasswordError('Password is required');
     }
   };
 
