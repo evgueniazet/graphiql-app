@@ -19,7 +19,6 @@ const SignIn = () => {
     if (user) redirect('/');
   }, [user, loading]);
   return (
-    //change styles names
     <div className={styles.login}>
       <h1 className={styles.title}>Sign In</h1>
       <div className={styles.login__container}>
