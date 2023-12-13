@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: var(--background-start-color);
+  transition:
+    background-color 0.3s,
+    padding 0.3s;
+  padding: 2rem 6rem;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+}
+
+.sticky {
+  background-color: var(--background-sticky-header);
+  padding: 1rem 6rem;
+}
+
+@media (max-width: 680px) {
+  .header {
+    padding: 1rem 1rem;
+  }
+}
