@@ -4,9 +4,10 @@
   gap: 10px;
   background-color: var(--background-start-color);
   transition:
-    background-color 0.3s,
-    padding 0.3s;
+  background-color 0.3s,
+  padding 0.3s;
   padding: 2rem 6rem;
+  transition: top 1.0s, box-shadow 1.0s;
 
   &__logo {
     display: flex;
@@ -17,8 +18,12 @@
 }
 
 .sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
   background-color: var(--background-sticky-header);
   padding: 1rem 6rem;
+  transition: top 0.3s, box-shadow 0.3s;
 }
 
 @media (max-width: 680px) {
