@@ -26,7 +26,6 @@ export default function Welcome() {
         <h1 className={styles.heading}>GraphiQL</h1>
         <Button
           type="button"
-          className="button"
           text={buttonText}
           onClick={handleButtonClick}
         />

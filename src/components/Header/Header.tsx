@@ -30,7 +30,6 @@ const Header = () => {
       <LanguageSwitcher />
       <Button
         type="button"
-        className="button"
         text="Sign Out"
         onClick={() => router.push('/')}
       />
