@@ -1,22 +1,22 @@
 import Image from 'next/image';
-import './Footer.scss';
+import styles from './Footer.module.scss';
 
 const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footer__left">
-        <h2 className="footer__left-heading">Authors</h2>
-        <ul className="footer__people-links">
+    <footer className={styles.footer}>
+      <div className={styles.footer__left}>
+        <h2 className={styles.footer__left_heading}>Authors</h2>
+        <ul className={styles.footer__people_links}>
           <li>
             <a
               href="https://github.com/evgueniazet"
-              className="footer__authors-link"
+              className={styles.footer__authors_link}
               target="_blank"
               rel="noopener noreferrer"
             >
               <Image
                 src="/icons8-github.svg"
-                className="footer__authors-icon"
+                className={styles.footer__authors_icon}
                 alt="GitHub Icon"
                 width={20}
                 height={20}
@@ -27,13 +27,13 @@ const Footer = () => {
           <li>
             <a
               href="https://github.com/sardn"
-              className="footer__authors-link"
+              className={styles.footer__authors_link}
               target="_blank"
               rel="noopener noreferrer"
             >
               <Image
                 src="/icons8-github.svg"
-                className="footer__authors-icon"
+                className={styles.footer__authors_icon}
                 alt="GitHub Icon"
                 width={20}
                 height={20}
@@ -44,13 +44,13 @@ const Footer = () => {
           <li>
             <a
               href="https://github.com/juliaholadava"
-              className="footer__authors-link"
+              className={styles.footer__authors_link}
               target="_blank"
               rel="noopener noreferrer"
             >
               <Image
                 src="/icons8-github.svg"
-                className="footer__authors-icon"
+                className={styles.footer__authors_icon}
                 alt="GitHub Icon"
                 width={20}
                 height={20}
@@ -60,10 +60,10 @@ const Footer = () => {
           </li>
         </ul>
       </div>
-      <div className="footer__middle">
+      <div className={styles.footer__middle}>
         <p>2023</p>
       </div>
-      <div className="footer__right">
+      <div className={styles.footer__right}>
         <a
           href="https://rs.school/react/"
           target="_blank"

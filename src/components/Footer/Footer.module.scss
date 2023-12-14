@@ -11,24 +11,24 @@
     align-self: center;
   }
 
-  &__left-heading {
+  &__left_heading {
     margin-bottom: 1rem;
     text-align: left;
   }
 
-  &__people-links {
+  &__people_links {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     list-style-type: none;
   }
 
-  &__authors-link {
+  &__authors_link {
     display: flex;
     align-items: center;
   }
 
-  &__authors-icon {
+  &__authors_icon {
     margin-right: 0.25rem;
   }
 
