@@ -5,7 +5,8 @@ import router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import LanguageSwitcher from './components';
 import Button from '../Button';
-import './Header.scss';
+import styles from './Header.module.scss';
+import classNames from 'classnames';
 
 const Header = () => {
   const [isSticky, setSticky] = useState(false);
@@ -23,8 +24,8 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={`header ${isSticky ? 'sticky' : ''}`}>
-      <Link className="header__logo" href="/">
+    <header className={classNames(styles.header, { [styles.sticky]: isSticky })}>
+      <Link className={styles.header__logo} href="/">
         GraphiQL
       </Link>
       <LanguageSwitcher />
