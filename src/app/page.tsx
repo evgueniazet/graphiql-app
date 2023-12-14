@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../utils/firebase';
+import { auth } from '../firebase';
 import Button from '../components/Button';
 import styles from './page.module.scss';
 
