@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import './LanguageSwitcher.scss';
+import styles from './LanguageSwitcher.module.scss';
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
@@ -12,7 +12,7 @@ const LanguageSwitcher = () => {
 
   return (
     <select
-      className="switcher"
+      className={styles.switcher}
       onChange={handleChangeLanguage}
       defaultValue={i18n.language}
     >
