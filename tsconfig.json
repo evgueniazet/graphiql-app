@@ -23,6 +23,12 @@
       }
     ]
   },
-  "include": ["src", ".next/types/**/*.ts"],
+  "include": [
+    "src",
+    ".next/types/**/*.ts",
+    "src/app/page.tsx",
+    "login",
+    "src/app/signup"
+  ],
   "exclude": ["node_modules"]
 }
