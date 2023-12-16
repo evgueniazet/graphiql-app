@@ -14,11 +14,11 @@ export default function Welcome() {
     if (user) {
       router.push('/main');
     } else {
-      router.push('/login');
+      router.push('/signup');
     }
   }
 
-  const buttonText = user ? 'Go to main' : 'Sign On';
+  const buttonText = user ? 'Go to main' : 'Sign Up';
 
   return (
     <>

@@ -51,7 +51,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if (loading) return;
-    if (user) redirect('/');
+    if (user) redirect('/main');
   }, [user, loading]);
 
   return (
