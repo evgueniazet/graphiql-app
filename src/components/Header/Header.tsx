@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import router from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { logout } from '../../firebase';
 import LanguageSwitcher from './components';
 import Button from '../Button';
 import styles from './Header.module.scss';
@@ -23,6 +23,10 @@ const Header = () => {
     };
   }, []);
 
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <header className={classNames(styles.header, { [styles.sticky]: isSticky })}>
       <Link className={styles.header__logo} href="/">
@@ -32,7 +36,7 @@ const Header = () => {
       <Button
         type="button"
         text="Sign Out"
-        onClick={() => router.push('/')}
+        onClick={handleLogout}
       />
     </header>
   );
