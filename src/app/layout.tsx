@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import './globals.css';
 import ErrorBoundary from '../components/ErrorBoundary/page';
 
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
