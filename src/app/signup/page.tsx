@@ -55,7 +55,7 @@ const SignUp = () => {
   }, [user, loading]);
 
   return (
-    <div className={styles.register}>
+    <div className={styles.register} role="registerForm">
       <h1 className={styles.title}>Sign Up</h1>
       <div className={styles.register__container}>
         <div className={styles.input_container}>
