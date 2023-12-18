@@ -33,7 +33,11 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const logInWithEmailAndPassword = async (email: string, password: string) => {
+const logInWithEmailAndPassword = async (
+  email: string,
+  password: string,
+  setError: React.Dispatch<React.SetStateAction<string | null>>
+) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
@@ -44,13 +48,13 @@ const logInWithEmailAndPassword = async (email: string, password: string) => {
 
       switch (errorCode) {
         case 'auth/user-not-found':
-          alert('User with this email address not found.');
+          setError('User with this email address not found.');
           break;
         case 'auth/wrong-password':
-          alert('Incorrect password.');
+          setError('Incorrect password.');
           break;
         default:
-          alert('Error when trying to log in.');
+          setError('Error when trying to log in.');
       }
     }
   }
@@ -58,7 +62,8 @@ const logInWithEmailAndPassword = async (email: string, password: string) => {
 
 const registerWithEmailAndPassword = async (
   email: string,
-  password: string
+  password: string,
+  setError: React.Dispatch<React.SetStateAction<string | null>>
 ) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -69,17 +74,15 @@ const registerWithEmailAndPassword = async (
       email,
     });
 
-    alert(
+    setError(
       `Registration was successful! Email: ${email}, password: ${password}`
     );
   } catch (err) {
     if (err instanceof Error) {
       if ((err as CustomError).code === 'auth/email-already-in-use') {
-        //TODO: add custom error
-        alert('A user with this email address has already been registered!');
+        setError('A user with this email address has already been registered!');
       } else {
-        //TODO: add custom error
-        alert('Error when trying to register');
+        setError('Error when trying to register');
       }
     }
   }

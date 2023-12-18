@@ -8,12 +8,14 @@ import Button from '../../components/Button';
 import styles from './signup.module.scss';
 import validatePassword from '../../utils/validatePassword';
 import validateEmail from '../../utils/validateEmail';
+import ErrorModal from '../../components/ErrorModal';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const [user, loading] = useAuthState(auth);
 
   const handleChange = (
@@ -37,12 +39,12 @@ const SignUp = () => {
     }
   };
 
-  const register = () => {
+  const register = async () => {
     const isEmailValid = validateEmail(email, setEmailError);
     const isPasswordValid = validatePassword(password, setPasswordError);
 
     if (isEmailValid && isPasswordValid) {
-      registerWithEmailAndPassword(email, password);
+      registerWithEmailAndPassword(email, password, setError);
     } else {
       if (!email.trim()) setEmailError('Email is required');
       if (!password.trim()) setPasswordError('Password is required');
@@ -55,7 +57,7 @@ const SignUp = () => {
   }, [user, loading]);
 
   return (
-    <div className={styles.register}>
+    <div className={styles.register} role="registerForm">
       <h1 className={styles.title}>Sign Up</h1>
       <div className={styles.register__container}>
         <div className={styles.input_container}>
@@ -87,6 +89,9 @@ const SignUp = () => {
         </div>
 
         <Button type="submit" text="Sign Up" onClick={register}></Button>
+        {error && (
+          <ErrorModal errorMessage={error} onClose={() => setError(null)} />
+        )}
       </div>
     </div>
   );
