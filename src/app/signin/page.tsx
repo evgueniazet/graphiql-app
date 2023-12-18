@@ -55,7 +55,7 @@ const SignIn = () => {
   }, [user, loading]);
 
   return (
-    <div className={styles.login}>
+    <div className={styles.login} role="loginForm">
       <h1 className={styles.title}>Sign In</h1>
       <div className={styles.login__container}>
         <div className={styles.input_container}>
@@ -88,7 +88,11 @@ const SignIn = () => {
           )}
         </div>
 
-        <Button type="submit" text="Sign In" onClick={signIn}></Button>
+        <Button
+          type="submit"
+          text="Sign In"
+          onClick={signIn}
+        ></Button>
       </div>
     </div>
   );
