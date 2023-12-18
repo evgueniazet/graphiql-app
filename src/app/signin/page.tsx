@@ -8,12 +8,14 @@ import Button from '../../components/Button';
 import styles from './signin.module.scss';
 import validateEmail from '../../utils/validateEmail';
 import validatePassword from '../../utils/validatePassword';
+import ErrorModal from '../../components/ErrorModal';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const [user, loading] = useAuthState(auth);
 
   const handleChange = (
@@ -42,7 +44,7 @@ const SignIn = () => {
     const isPasswordValid = validatePassword(password, setPasswordError);
 
     if (isEmailValid && isPasswordValid) {
-      logInWithEmailAndPassword(email, password);
+      logInWithEmailAndPassword(email, password, setError);
     } else {
       if (!email.trim()) setEmailError('Email is required');
       if (!password.trim()) setPasswordError('Password is required');
@@ -88,11 +90,10 @@ const SignIn = () => {
           )}
         </div>
 
-        <Button
-          type="submit"
-          text="Sign In"
-          onClick={signIn}
-        ></Button>
+        <Button type="submit" text="Sign In" onClick={signIn}></Button>
+        {error && (
+          <ErrorModal errorMessage={error} onClose={() => setError(null)} />
+        )}
       </div>
     </div>
   );
