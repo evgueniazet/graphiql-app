@@ -9,6 +9,8 @@ import styles from './signin.module.scss';
 import validateEmail from '../../utils/validateEmail';
 import validatePassword from '../../utils/validatePassword';
 import ErrorModal from '../../components/ErrorModal';
+import { getSignInText } from '../../utils/getTexts';
+import { useLanguage } from '../../context/LanguageContext';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -17,6 +19,9 @@ const SignIn = () => {
   const [passwordError, setPasswordError] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [user, loading] = useAuthState(auth);
+  const { language } = useLanguage();
+
+  const signInText = getSignInText(language || 'en');
 
   const handleChange = (
     setter: React.Dispatch<React.SetStateAction<string>>,
@@ -58,7 +63,7 @@ const SignIn = () => {
 
   return (
     <div className={styles.login} role="loginForm">
-      <h1 className={styles.title}>Sign In</h1>
+      <h1 className={styles.title}>{signInText.title}</h1>
       <div className={styles.login__container}>
         <div className={styles.input_container}>
           {' '}
@@ -69,7 +74,7 @@ const SignIn = () => {
             onChange={(e) =>
               handleChange(setEmail, validateEmail, e.target.value)
             }
-            placeholder="E-mail Address"
+            placeholder={signInText.emailPlaceholder}
           />
           {emailError && <span className={styles.error}>{emailError}</span>}
         </div>
@@ -83,14 +88,18 @@ const SignIn = () => {
             onChange={(e) =>
               handleChange(setPassword, validatePassword, e.target.value)
             }
-            placeholder="Password"
+            placeholder={signInText.passwordPlaceholder}
           />
           {passwordError && (
             <span className={styles.error}>{passwordError}</span>
           )}
         </div>
 
-        <Button type="submit" text="Sign In" onClick={signIn}></Button>
+        <Button
+          type="submit"
+          text={signInText.button}
+          onClick={signIn}
+        ></Button>
         {error && (
           <ErrorModal errorMessage={error} onClose={() => setError(null)} />
         )}

@@ -1,0 +1,21 @@
+{
+  "signin": {
+    "title": "Zaloguj się",
+    "emailPlaceholder": "Adres e-mail",
+    "passwordPlaceholder": "Hasło",
+    "button": "Zaloguj się"
+  },
+  "signup": {
+    "title": "Zarejestruj się",
+    "emailPlaceholder": "Adres e-mail",
+    "passwordPlaceholder": "Hasło",
+    "button": "Zarejestruj się"
+  },
+  "welcome": {
+    "mainRoute": "Przejdź do strony głównej",
+    "signUpRoute": "Zarejestruj się"
+  },
+  "header": {
+    "button": "Wyloguj się"
+  }
+}

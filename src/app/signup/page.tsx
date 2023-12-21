@@ -9,6 +9,8 @@ import styles from './signup.module.scss';
 import validatePassword from '../../utils/validatePassword';
 import validateEmail from '../../utils/validateEmail';
 import ErrorModal from '../../components/ErrorModal';
+import { getSignUpText } from '../../utils/getTexts';
+import { useLanguage } from '../../context/LanguageContext';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -17,6 +19,9 @@ const SignUp = () => {
   const [passwordError, setPasswordError] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [user, loading] = useAuthState(auth);
+  const { language } = useLanguage();
+
+  const signUpText = getSignUpText(language || 'en');
 
   const handleChange = (
     setter: React.Dispatch<React.SetStateAction<string>>,
@@ -58,7 +63,7 @@ const SignUp = () => {
 
   return (
     <div className={styles.register} role="registerForm">
-      <h1 className={styles.title}>Sign Up</h1>
+      <h1 className={styles.title}>{signUpText.title}</h1>
       <div className={styles.register__container}>
         <div className={styles.input_container}>
           <input
@@ -68,7 +73,7 @@ const SignUp = () => {
             onChange={(e) =>
               handleChange(setEmail, validateEmail, e.target.value)
             }
-            placeholder="E-mail Address"
+            placeholder={signUpText.emailPlaceholder}
           />
           {emailError && <span className={styles.error}>{emailError}</span>}
         </div>
@@ -81,14 +86,14 @@ const SignUp = () => {
             onChange={(e) =>
               handleChange(setPassword, validatePassword, e.target.value)
             }
-            placeholder="Password"
+            placeholder={signUpText.passwordPlaceholder}
           />
           {passwordError && (
             <span className={styles.error}>{passwordError}</span>
           )}
         </div>
 
-        <Button type="submit" text="Sign Up" onClick={register}></Button>
+        <Button type="submit" text={signUpText.button} onClick={register}></Button>
         {error && (
           <ErrorModal errorMessage={error} onClose={() => setError(null)} />
         )}
