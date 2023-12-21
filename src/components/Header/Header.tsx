@@ -36,10 +36,9 @@ const Header = () => {
     <header
       className={classNames(styles.header, { [styles.sticky]: isSticky })}
     >
-      {/* <Link className={styles.header__logo} href="/">
+      <Link className={styles.header__logo} href="/">
         GraphiQL
-      </Link> */}
-      <div className={styles.header__logo}>GraphiQL</div>
+      </Link>
       <LanguageSwitcher />
       <Button type="button" text={headerText.button} onClick={handleLogout} />
     </header>
