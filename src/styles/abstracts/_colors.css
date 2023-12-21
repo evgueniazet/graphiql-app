@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+:root {
+  --primary--major: #0085FF;
+  --primary--hover: #2D85D8;
+  --primary--tiny: #D9EDFE;
+
+  --secondary--major: #00B982;
+  --secondary--hover: #019f73;
+  --secondary--tiny: #96ffde;
+
+  --tertiary--major: #000000;
+  --tertiary--hover: #1A1A1A;
+  --tertiary--tiny: #D3D3D3;
+
+  --element--background--hover: #ECECEC;
+  --element--background-border--disabled: #E5E5E5;
+  --element--background: #F5F5F5;
+  --element--border: #C0C0C0;
+  --element--border--hover: #AAAAAA;
+  --element--placeholder: #AAAAAA;
+
+  --text--disabled: #AAA;
+  --text--hover: #808080;
+  --text--major: #333;
+  --text--minor: #999;
+  --text--invert: #FFF;
+
+  --error--major: #E0002C;
+  --success--major: #2DD283;
+  --warning--major: #F5CD0C;
+  --info--major: #3FA9E1;
+
+  --positive--major: #33AF47;
+  --negative--major: #DC3030;
+}
