@@ -1,0 +1,21 @@
+{
+  "signin": {
+    "title": "Sign In",
+    "emailPlaceholder": "Email Address",
+    "passwordPlaceholder": "Password",
+    "button": "Sign In"
+  },
+  "signup": {
+    "title": "Sign Up",
+    "emailPlaceholder": "Email Address",
+    "passwordPlaceholder": "Password",
+    "button": "Sign Up"
+  },
+  "welcome": {
+    "mainRoute": "Go to main",
+    "signUpRoute": "Sign Up"
+  },
+  "header": {
+    "button": "Sign Out"
+  }
+}
