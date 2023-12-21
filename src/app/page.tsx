@@ -16,10 +16,16 @@ export default function Welcome() {
   const defaultLanguage = 'en';
   const welcomeText = getWelcomeText(language || 'en');
 
-  const languageFromStorage = localStorage.getItem('language');
+  const isClient = typeof window !== 'undefined';
 
-  if (!languageFromStorage) {
-    localStorage.setItem('language', defaultLanguage);
+  let languageFromStorage;
+
+  if (isClient) {
+    languageFromStorage = localStorage.getItem('language');
+
+    if (!languageFromStorage) {
+      localStorage.setItem('language', defaultLanguage);
+    }
   }
 
   const handleButtonClick = () => {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, ReactNode, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Locale } from '../types/Locale';
 
 interface LanguageContextProps {
@@ -12,15 +12,21 @@ const LanguageContext = createContext<LanguageContextProps | undefined>(
   undefined
 );
 
-export const LanguageProvider: React.FC<{ children: ReactNode }> = ({
+export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const languageFromStorage = localStorage.getItem('language');
-  const defaultLanguage: Locale = 'en';
+  const [language, setLanguage] = useState<Locale>('en');
 
-  const [language, setLanguage] = useState<Locale>(
-    (languageFromStorage as Locale) || defaultLanguage
-  );
+  useEffect(() => {
+    const isClient = typeof window !== 'undefined';
+
+    if (isClient) {
+      const languageFromStorage = localStorage.getItem('language');
+      const defaultLanguage: Locale = 'en';
+
+      setLanguage((languageFromStorage as Locale) || defaultLanguage);
+    }
+  }, []);
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage }}>
