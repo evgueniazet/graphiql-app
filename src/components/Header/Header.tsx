@@ -11,9 +11,11 @@ import styles from './Header.module.scss';
 import classNames from 'classnames';
 import { getHeaderText } from '../../utils/getTexts';
 import { useLanguage } from '../../context/LanguageContext';
+import ErrorModal from '../ErrorModal';
 
 const Header = () => {
   const [isSticky, setSticky] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const { language } = useLanguage();
   const [user] = useAuthState(auth);
   const router = useRouter();
@@ -35,8 +37,13 @@ const Header = () => {
     };
   }, []);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push('/');
+    } catch (error) {
+      setError('Logout error. Please try again.');
+    }
   };
 
   return (
@@ -77,6 +84,7 @@ const Header = () => {
           </>
         )}
       </div>
+      {error && <ErrorModal errorMessage={error} onClose={() => setError(null)} />}
     </header>
   );
 };
