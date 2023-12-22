@@ -2,7 +2,9 @@
 
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { logout } from '../../firebase';
+import { useRouter, usePathname } from 'next/navigation';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, logout } from '../../firebase';
 import LanguageSwitcher from './components';
 import Button from '../Button';
 import styles from './Header.module.scss';
@@ -13,6 +15,11 @@ import { useLanguage } from '../../context/LanguageContext';
 const Header = () => {
   const [isSticky, setSticky] = useState(false);
   const { language } = useLanguage();
+  const [user] = useAuthState(auth);
+  const router = useRouter();
+  const pathName = usePathname();
+
+  const isOnWelcomePage = pathName === '/';
 
   const headerText = getHeaderText(language || 'en');
 
@@ -40,7 +47,36 @@ const Header = () => {
         GraphiQL
       </Link>
       <LanguageSwitcher />
-      <Button type="button" text={headerText.button} onClick={handleLogout} />
+      <div className={styles.header__button_container}>
+        {user ? (
+          isOnWelcomePage ? (
+            <Button
+            type="button"
+            text={headerText.buttonMainPage}
+            onClick={() => router.push('/main')}
+            />
+          ) : (
+            <Button
+            type="button"
+            text={headerText.buttonSignOut}
+            onClick={handleLogout}
+            />
+          )
+        ) : (
+          <>
+            <Button
+              type="button"
+              text={headerText.buttonSignIn}
+              onClick={() => router.push('/signin')}
+            />
+            <Button
+              type="button"
+              text={headerText.buttonSignUp}
+              onClick={() => router.push('/signup')}
+            />
+          </>
+        )}
+      </div>
     </header>
   );
 };
