@@ -26,40 +26,34 @@ export default function Welcome() {
     <>
       <main className={styles.main}>
         <section className={styles.intro_section}>
-          <h1 className={styles.heading1}>Welcome to Our GraphiQL Tool!</h1>
+          <h1 className={styles.heading1}>{welcomeText.heading1}</h1>
           <div className={styles.description_container}>
             <p className={styles.description}>
-              GraphiQL Playground is a powerful graphical interface for
-              exploring and testing GraphQL queries. Our application offers a
-              unique user experience, combining flexibility and functionality
-              for working with any GraphQL API.
+              {welcomeText.descriptionProject}
             </p>
           </div>
         </section>
         <section className={styles.features_section}>
           <div className={styles.heading3_container}>
-            <h3 className={styles.heading3}>Key Features</h3>
+            <h3 className={styles.heading3}>{welcomeText.headingFeatures}</h3>
           </div>
           <div className={styles.features_container}>
             <div className={styles.feature}>
-              <h4 className={styles.heading4}>Secure Authentication</h4>
+              <h4 className={styles.heading4}>{welcomeText.secureAuth}</h4>
               <p className={styles.description_card}>
-                Access to the tool is restricted to authorized users, ensuring
-                data security and confidentiality.
+                {welcomeText.firstFeat}
               </p>
             </div>
             <div className={styles.feature}>
-              <h4 className={styles.heading4}>Support for Any GraphQL API</h4>
+              <h4 className={styles.heading4}>{welcomeText.supportAnyApi}</h4>
               <p className={styles.description_card}>
-                Our app is compatible with any open GraphQL API that supports
-                CORS. You can also specify your own endpoint for testing.
+                {welcomeText.secondFeat}
               </p>
             </div>
             <div className={styles.feature}>
-              <h4 className={styles.heading4}>Intuitive Interface</h4>
+              <h4 className={styles.heading4}>{welcomeText.interface}</h4>
               <p className={styles.description_card}>
-                Includes a query editor, variables editor, headers editor, as
-                well as a documentation section and server response viewer.
+                {welcomeText.thirdFeat}
               </p>
             </div>
           </div>
@@ -67,37 +61,31 @@ export default function Welcome() {
         <section className={styles.school_section}>
           <div className={styles.description_container}>
             <p className={styles.description}>
-              This project was developed as part of the React Course of the RS
-              School, which equipped us with the knowledge and skills to build
-              modern web applications.
+              {welcomeText.descriptionCourse}
             </p>
           </div>
         </section>
         <section className={styles.features_section}>
           <div className={styles.heading3_container}>
-            <h3 className={styles.heading3}>The Development Team</h3>
+            <h3 className={styles.heading3}>{welcomeText.headingTeam}</h3>
           </div>
           <div className={styles.features_container}>
             <div className={styles.feature}>
               <h4 className={styles.heading4}>Evguenia Zelenko</h4>
               <p className={styles.description_card}>
-                Some information will be added...
+                {welcomeText.aboutEvgenia}
               </p>
             </div>
             <div className={styles.feature}>
               <h4 className={styles.heading4}>Alexander Abyzov</h4>
               <p className={styles.description_card}>
-                Some information will be added...
+                {welcomeText.aboutAlexander}
               </p>
             </div>
             <div className={styles.feature}>
               <h4 className={styles.heading4}>Julia Holadava</h4>
               <p className={styles.description_card}>
-                A graduate of BNTU in Environmental Management and Audit,
-                started her IT career as a UI designer before discovering a
-                passion for coding. She began training at Rolling Scope School
-                in December 2022 and enjoys solving problems that turn ideas
-                into interactive products.
+                {welcomeText.aboutJulia}
               </p>
             </div>
           </div>
