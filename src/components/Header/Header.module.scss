@@ -40,5 +40,9 @@
 @media (max-width: 760px) {
   .header {
     padding: 1rem 1rem;
+
+    &__logo {
+      font-size: 1.25rem;
+    }
   }
 }
