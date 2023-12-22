@@ -12,10 +12,25 @@
     "button": "Sign Up"
   },
   "welcome": {
-    "mainRoute": "Go to main",
-    "signUpRoute": "Sign Up"
+    "heading1": "Welcome to Our GraphiQL Tool!",
+    "descriptionProject": "GraphiQL Playground is a powerful graphical interface for exploring and testing GraphQL queries. Our application offers a unique user experience, combining flexibility and functionality for working with any GraphQL API.",
+    "headingFeatures": "Key Features",
+    "secureAuth": "SECURE AUTHENTICATION",
+    "firstFeat": "Access to the tool is restricted to authorized users, ensuring data security and confidentiality.",
+    "supportAnyApi": "SUPPORT FOR ANY GRAPHQL API",
+    "secondFeat": "Our app is compatible with any open GraphQL API that supports CORS. You can also specify your own endpoint for testing.",
+    "interface": "INTUITIVE INTERFACE",
+    "thirdFeat": "Includes a query editor, variables editor, headers editor, as well as a documentation section and server response viewer.",
+    "descriptionCourse": "This project was developed as part of the React Course of the RS School, which equipped us with the knowledge and skills to build modern web applications.",
+    "headingTeam": "The Development Team",
+    "aboutEvgenia": "Some information will be added...",
+    "aboutAlexander": "Some information will be added...",
+    "aboutJulia": "A graduate of BNTU in Environmental Management and Audit, started her IT career as a UI designer before discovering a passion for coding. She began training at Rolling Scope School in December 2022 and enjoys solving problems that turn ideas into interactive products."
   },
   "header": {
-    "button": "Sign Out"
+    "buttonSignIn": "Sign In",
+    "buttonSignUp": "Sign Up",
+    "buttonSignOut": "Sign Out",
+    "buttonMainPage": "Main Page"
   }
 }

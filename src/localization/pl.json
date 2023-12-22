@@ -12,10 +12,25 @@
     "button": "Zarejestruj się"
   },
   "welcome": {
-    "mainRoute": "Przejdź do strony głównej",
-    "signUpRoute": "Zarejestruj się"
+    "heading1": "Witamy w naszym narzędziu GraphiQL!",
+    "descriptionProject": "GraphiQL Playground to potężny graficzny interfejs do eksploracji i testowania zapytań GraphQL. Nasza aplikacja oferuje unikalne doświadczenie użytkownika, łącząc elastyczność i funkcjonalność do pracy z dowolnym API GraphQL.",
+    "headingFeatures": "Kluczowe Funkcje",
+    "secureAuth": "BEZPIECZNA AUTORYZACJA",
+    "firstFeat": "Dostęp do narzędzia jest ograniczony do autoryzowanych użytkowników, co zapewnia bezpieczeństwo danych i poufność.",
+    "supportAnyApi": "OBSŁUGA DOWOLNEGO API GRAPHQL",
+    "secondFeat": "Nasza aplikacja jest kompatybilna z dowolnym otwartym API GraphQL, które obsługuje CORS. Możesz również określić własny punkt końcowy do testowania.",
+    "interface": "INTUICYJNY INTERFEJS",
+    "thirdFeat": "Zawiera edytor zapytań, edytor zmiennych, edytor nagłówków, jak również sekcję dokumentacji i przeglądarkę odpowiedzi serwera.",
+    "descriptionCourse": "Ten projekt został opracowany jako część kursu React w RS School, który wyposażył nas w wiedzę i umiejętności niezbędne do budowania nowoczesnych aplikacji internetowych.",
+    "headingTeam": "Zespół Deweloperski",
+    "aboutEvgenia": "Pewne informacje zostaną dodane ...",
+    "aboutAlexander": "Pewne informacje zostaną dodane ...",
+    "aboutJulia": "Absolwentka BNTU w zakresie zarządzania środowiskiem i audytu, rozpoczęła karierę w IT jako projektantka UI, zanim odkryła pasję do programowania. Rozpoczęła szkolenie w Rolling Scope School w grudniu 2022 roku i lubi rozwiązywać problemy, które przekształcają pomysły w interaktywne produkty."
   },
   "header": {
-    "button": "Wyloguj się"
+    "buttonSignIn": "Zaloguj się",
+    "buttonSignUp": "Zarejestruj się",
+    "buttonSignOut": "Wyloguj się",
+    "buttonMainPage": "Strona główna"
   }
 }
