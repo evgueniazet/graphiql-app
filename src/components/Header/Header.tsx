@@ -7,9 +7,14 @@ import LanguageSwitcher from './components';
 import Button from '../Button';
 import styles from './Header.module.scss';
 import classNames from 'classnames';
+import { getHeaderText } from '../../utils/getTexts';
+import { useLanguage } from '../../context/LanguageContext';
 
 const Header = () => {
   const [isSticky, setSticky] = useState(false);
+  const { language } = useLanguage();
+
+  const headerText = getHeaderText(language || 'en');
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -33,11 +38,7 @@ const Header = () => {
         GraphiQL
       </Link>
       <LanguageSwitcher />
-      <Button
-        type="button"
-        text="Sign Out"
-        onClick={handleLogout}
-      />
+      <Button type="button" text={headerText.button} onClick={handleLogout} />
     </header>
   );
 };

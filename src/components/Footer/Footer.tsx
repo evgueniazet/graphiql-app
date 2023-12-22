@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import styles from './Footer.module.scss';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -8,7 +9,7 @@ const Footer = () => {
         <h2 className={styles.footer__left_heading}>Authors</h2>
         <ul className={styles.footer__people_links}>
           <li>
-            <a
+            <Link
               href="https://github.com/evgueniazet"
               className={styles.footer__authors_link}
               target="_blank"
@@ -22,10 +23,10 @@ const Footer = () => {
                 height={20}
               />
               Evguenia Zelenko
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="https://github.com/sardn"
               className={styles.footer__authors_link}
               target="_blank"
@@ -39,10 +40,10 @@ const Footer = () => {
                 height={20}
               />
               Alexander Abyzov
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="https://github.com/juliaholadava"
               className={styles.footer__authors_link}
               target="_blank"
@@ -56,7 +57,7 @@ const Footer = () => {
                 height={20}
               />
               Julia Holadava
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
@@ -64,7 +65,7 @@ const Footer = () => {
         <p>2023</p>
       </div>
       <div className={styles.footer__right}>
-        <a
+        <Link
           href="https://rs.school/react/"
           target="_blank"
           rel="noopener noreferrer"
@@ -75,11 +76,10 @@ const Footer = () => {
             width={120}
             height={40}
           />
-        </a>
+        </Link>
       </div>
     </footer>
   );
 };
 
 export default Footer;
-
