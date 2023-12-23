@@ -3,7 +3,7 @@ import pl from '../localization/pl.json';
 
 type Locale = 'en' | 'pl';
 
-const getTexts = (locale: Locale) => {
+export const getTexts = (locale: Locale) => {
   switch (locale) {
     case 'en':
       return en;

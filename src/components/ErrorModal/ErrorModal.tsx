@@ -23,7 +23,7 @@ const ErrorModal: React.FC<IErrorModal> = ({ errorMessage, onClose }) => {
             <Button
               className={styles.button}
               type="button"
-              text="  &times;"
+              text="&times;"
               onClick={handleClose}
             />
             <p>{errorMessage}</p>
