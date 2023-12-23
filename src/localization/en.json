@@ -32,5 +32,8 @@
     "buttonSignUp": "Sign Up",
     "buttonSignOut": "Sign Out",
     "buttonMainPage": "Main Page"
+  },
+  "footer": {
+    "authors": "Authors"
   }
 }
