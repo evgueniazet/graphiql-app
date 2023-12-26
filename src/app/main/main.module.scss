@@ -219,6 +219,18 @@
   width: 40px;
 }
 
-.editor_tools {
-  margin-left: auto;
+.editor {
+  display: block;
+  padding: 0 1rem 3rem;
+}
+
+.editor_input {
+  cursor: pointer;
+  padding: 10px;
+  font-size: 1 rem;
+  width: 300px;
+  color: var(--text-light);
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 1px var(--text-light);
 }
