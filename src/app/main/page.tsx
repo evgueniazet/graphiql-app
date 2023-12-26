@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import styles from './main.module.scss';
-import Button from '../../components/Button';
 import { useLanguage } from '../../context/LanguageContext';
 import { getMainText } from '../../utils/getTexts';
-import ChevronUpIcon from '../../components/icons/ChevronUpIcon';
+import ToolsSection from './components/ToolsSection/ToolsSection';
+import ToolsEditor from './components/ToolsEditor/ToolsEditor';
 
 const MainPage = () => {
   const { language } = useLanguage();
@@ -465,49 +465,16 @@ const MainPage = () => {
                 </div>
               </div>
               <div className={styles.tools_container}>
-                <div className={styles.tools}>
-                  <div className={styles.tools_button_container}>
-                    <Button
-                      type="button"
-                      className={styles.textButton}
-                      text={mainText.variablesButton}
-                      onClick={toggleVariablesEditor}
-                      isActive={isVariablesEditor}
-                    />
-                    <Button
-                      type="button"
-                      className={styles.textButton}
-                      text={mainText.headersButton}
-                      onClick={toggleHeadersEditor}
-                      isActive={isHeadersEditor}
-                    />
-                  </div>
-                  <Button
-                    type="button"
-                    className={styles.iconButton}
-                    onClick={toggleEditor}
-                  >
-                    <ChevronUpIcon />
-                  </Button>
-                </div>
-                {isVariablesEditor && (
-                  <div className={styles.editor}>
-                    <input
-                      type="text"
-                      className={styles.editor_input}
-                      onChange={() => {}}
-                    />
-                  </div>
-                )}
-                {isHeadersEditor && (
-                  <div className={styles.editor}>
-                    <input
-                      type="text"
-                      className={styles.editor_input}
-                      onChange={() => {}}
-                    />
-                  </div>
-                )}
+                <ToolsSection
+                  onToggleVariablesEditor={toggleVariablesEditor}
+                  onToggleHeadersEditor={toggleHeadersEditor}
+                  onToggleEditor={toggleEditor}
+                  isVariablesEditorActive={isVariablesEditor}
+                  isHeadersEditorActive={isHeadersEditor}
+                  mainText={mainText}
+                />
+                {isVariablesEditor && <ToolsEditor onChange={() => {}} />}
+                {isHeadersEditor && <ToolsEditor onChange={() => {}} />}
               </div>
             </div>
           </div>
