@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './main.module.scss';
 import Button from '../../components/Button';
 import { useLanguage } from '../../context/LanguageContext';
@@ -10,6 +10,32 @@ import ChevronUpIcon from '../../components/icons/ChevronUpIcon';
 const MainPage = () => {
   const { language } = useLanguage();
   const mainText = getMainText(language || 'en');
+  const [isVariablesEditor, setVariablesEditor] = useState(false);
+  const [isHeadersEditor, setHeadersEditor] = useState(false);
+
+  const toggleVariablesEditor = () => {
+    if (isHeadersEditor) {
+      setHeadersEditor(false);
+    };
+    setVariablesEditor(!isVariablesEditor);
+  };
+
+  const toggleHeadersEditor = () => {
+    if (isVariablesEditor) {
+      setVariablesEditor(false);
+    };
+    setHeadersEditor(!isHeadersEditor);
+  };
+
+  const toggleEditor =() => {
+    if (isVariablesEditor || isHeadersEditor) {
+      setVariablesEditor(false);
+      setHeadersEditor(false);
+    };
+    if (!isVariablesEditor && !isHeadersEditor) {
+      setVariablesEditor(true);
+    };
+  };
 
   return (
     <div className={styles.root}>
@@ -438,28 +464,50 @@ const MainPage = () => {
                   </button> */}
                 </div>
               </div>
-              <div className={styles.tools}>
-                <div className={styles.tools_button_container}>
+              <div className={styles.tools_container}>
+                <div className={styles.tools}>
+                  <div className={styles.tools_button_container}>
+                    <Button
+                      type="button"
+                      className={styles.textButton}
+                      text={mainText.variablesButton}
+                      onClick={toggleVariablesEditor}
+                      isActive={isVariablesEditor}
+                    />
+                    <Button
+                      type="button"
+                      className={styles.textButton}
+                      text={mainText.headersButton}
+                      onClick={toggleHeadersEditor}
+                      isActive={isHeadersEditor}
+                    />
+                  </div>
                   <Button
                     type="button"
-                    className={styles.textButton}
-                    text={mainText.variablesButton}
-                    onClick={() => {}}
-                  />
-                  <Button
-                    type="button"
-                    className={styles.textButton}
-                    text={mainText.headersButton}
-                    onClick={() => {}}
-                  />
+                    className={styles.iconButton}
+                    onClick={toggleEditor}
+                  >
+                    <ChevronUpIcon />
+                  </Button>
                 </div>
-                <Button
-                  type="button"
-                  className={styles.iconButton}
-                  onClick={() => {}}
-                >
-                  <ChevronUpIcon />
-                </Button>
+                {isVariablesEditor && (
+                  <div className={styles.editor}>
+                    <input
+                      type="text"
+                      className={styles.editor_input}
+                      onChange={() => {}}
+                    />
+                  </div>
+                )}
+                {isHeadersEditor && (
+                  <div className={styles.editor}>
+                    <input
+                      type="text"
+                      className={styles.editor_input}
+                      onChange={() => {}}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
