@@ -194,38 +194,31 @@
 .execute_button {
   background-color: var(--button-active);
 }
+
 .tools {
   cursor: row-resize;
   display: flex;
+  justify-content: space-between;
   width: 100%;
-  column-gap: 2rem;
   padding: 1rem;
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    // height: 3rem;
-    // width: 3rem;
-    border-radius: a.$br--6;
-    transition: 0.3s ease-in-out;
-    border: none;
-    cursor: pointer;
-    color: var(--text-light);
-    background-color: inherit;
-    font-size: a.$fs--14;
-    padding: a.$padding--link;
-
-    @media (hover: hover) {
-      &:hover {
-        background-color: var(--button-hover);
-      }
-    }
-
-    &:disabled {
-      background-color: var(--button-disabled);
-    }
-  }
 }
+
+.tools_button_container {
+  display: flex;
+  gap: 5px;
+}
+
+.textButton {
+  background-color: transparent;
+  width: auto;
+  padding: 0 10px;
+}
+
+.iconButton {
+  background-color: transparent;
+  width: 40px;
+}
+
 .editor_tools {
   margin-left: auto;
 }
