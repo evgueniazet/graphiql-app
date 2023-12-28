@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, logout } from '../../auth/firebase'';
+import { auth, logout } from '../../auth/firebase';
 import LanguageSwitcher from './components';
 import Button from '../Button';
 import styles from './Header.module.scss';

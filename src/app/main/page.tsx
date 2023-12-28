@@ -4,13 +4,11 @@ import React, { Fragment, useState } from 'react';
 import styles from './main.module.scss';
 import CodeEditor from '../../components/CodeEditor';
 import Button from '../../components/Button';
-import Link from 'next/link';
 import RequestIcon from '../../icons/requestIcon';
 import PrettifyIcon from '../../icons/prettifyIcon';
 import prettify from '../../utils/prettify';
 import ReactAce from 'react-ace';
 import { useEditorContext } from '../../context/EditorContext';
-import withAuth from '../../auth/withAuth';
 import { useLanguage } from '../../context/LanguageContext';
 import { getMainText } from '../../utils/getTexts';
 import ToolsSection from './components/ToolsSection/ToolsSection';
@@ -41,6 +39,9 @@ const MainPage = () => {
     if (currentCode) {
       const formattedCode = prettify(currentCode);
       editorRef.current?.editor.setValue(formattedCode);
+    }
+  };
+
   const toggleVariablesEditor = () => {
     if (isHeadersEditor) {
       setHeadersEditor(false);
@@ -73,7 +74,7 @@ const MainPage = () => {
   };
 
   const removeTab = (tabId: number) => {
-    const updatedTabs = tabs.filter(tab => tab.id !== tabId);
+    const updatedTabs = tabs.filter((tab) => tab.id !== tabId);
     setTabs(updatedTabs);
 
     if (activeTabId === tabId) {
@@ -94,9 +95,12 @@ const MainPage = () => {
           <div className={styles.basic_tabs}>
             <ul className={styles.tabs_list}>
               {tabs.map((tab) => (
-                <li key={`${tab.id}_${Date.now()}`} className={`${styles.tabButton} ${
-                  tab.id === activeTabId ? styles.tabButton_active : ''
-                }`}>
+                <li
+                  key={`${tab.id}_${Date.now()}`}
+                  className={`${styles.tabButton} ${
+                    tab.id === activeTabId ? styles.tabButton_active : ''
+                  }`}
+                >
                   <Button
                     type="button"
                     text={tab.title}
@@ -123,30 +127,54 @@ const MainPage = () => {
           </div>
           <div className={styles.editor_container}>
             <div className={styles.editors}>
-              {tabs.map(
-                (tab) =>
-                  tab.id === activeTabId && (
-                    <Fragment key={tab.id}>
-                      <div className={styles.editor_wrapp}>
-                        editor-block for ${(tab.title, tab.id)}
-                      </div>
-                      <div className={styles.tools_container}>
-                        <ToolsSection
-                          onToggleVariablesEditor={toggleVariablesEditor}
-                          onToggleHeadersEditor={toggleHeadersEditor}
-                          onToggleEditor={toggleEditor}
-                          isVariablesEditorActive={isVariablesEditor}
-                          isHeadersEditorActive={isHeadersEditor}
-                          mainText={mainText}
-                        />
-                        {isVariablesEditor && (
-                          <ToolsEditor onChange={() => {}} />
-                        )}
-                        {isHeadersEditor && <ToolsEditor onChange={() => {}} />}
-                      </div>
-                    </Fragment>
-                  )
-              )}
+              <div>
+                {tabs.map(
+                  (tab) =>
+                    tab.id === activeTabId && (
+                      <Fragment key={tab.id}>
+                        <div className={styles.editor_wrapp}>
+                          {/* editor-block for ${(tab.title, tab.id)} */}
+                          <CodeEditor
+                            forwardedRef={editorRef}
+                            onEditorChange={handleEditorChange}
+                          />
+                        </div>
+                        <div className={styles.tools_container}>
+                          <ToolsSection
+                            onToggleVariablesEditor={toggleVariablesEditor}
+                            onToggleHeadersEditor={toggleHeadersEditor}
+                            onToggleEditor={toggleEditor}
+                            isVariablesEditorActive={isVariablesEditor}
+                            isHeadersEditorActive={isHeadersEditor}
+                            mainText={mainText}
+                          />
+                          {isVariablesEditor && (
+                            <ToolsEditor onChange={() => {}} />
+                          )}
+                          {isHeadersEditor && (
+                            <ToolsEditor onChange={() => {}} />
+                          )}
+                        </div>
+                      </Fragment>
+                    )
+                )}
+              </div>
+              <div className={styles.buttons}>
+                <Button
+                  type="button"
+                  className={styles.button}
+                  onClick={requestButtonClick}
+                >
+                  <RequestIcon />
+                </Button>
+                <Button
+                  type="button"
+                  onClick={prettifyButtonClick}
+                  className={styles.button}
+                >
+                  <PrettifyIcon />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -155,4 +183,4 @@ const MainPage = () => {
   );
 };
 
-export default withAuth(MainPage);
+export default MainPage;
