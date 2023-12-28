@@ -35,5 +35,9 @@
   },
   "footer": {
     "authors": "Autorzy"
+  },
+  "main": {
+    "variablesButton": "Zmienne",
+    "headersButton": "Nagłówki"
   }
 }

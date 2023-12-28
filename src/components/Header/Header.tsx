@@ -47,10 +47,8 @@ const Header = () => {
   };
 
   return (
-    <header
-      className={classNames(styles.header, { [styles.sticky]: isSticky })}
-    >
-      <Link className={styles.header__logo} href="/main">
+    <header className={classNames(styles.header, { [styles.sticky]: isSticky })}>
+      <Link className={styles.header__logo} href="/">
         GraphiQL
       </Link>
       <LanguageSwitcher />
