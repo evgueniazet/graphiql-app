@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { logout } from '../../firebase';
+import { logout } from '../../auth/firebase';
 import LanguageSwitcher from './components';
 import Button from '../Button';
 import styles from './Header.module.scss';
@@ -33,7 +33,9 @@ const Header = () => {
   };
 
   return (
-    <header className={classNames(styles.header, { [styles.sticky]: isSticky })}>
+    <header
+      className={classNames(styles.header, { [styles.sticky]: isSticky })}
+    >
       <Link className={styles.header__logo} href="/main">
         GraphiQL
       </Link>
