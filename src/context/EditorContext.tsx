@@ -14,9 +14,7 @@ interface EditorContextValue {
 const EditorContext = createContext<EditorContextValue | undefined>(undefined);
 
 export const EditorProvider: React.FC<EditorContextProps> = ({ children }) => {
-  const [editorValue, setEditorValue] = useState(
-    "console.log('Monaco Editor!');"
-  );
+  const [editorValue, setEditorValue] = useState("");
 
   const handleEditorChange = (value: string) => {
     setEditorValue(value);
