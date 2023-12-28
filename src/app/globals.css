@@ -6,10 +6,11 @@
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
   --background-main: #f5f5f5;
-  --background-second: #B4C8DC;
-  --background-editor: #2E3C4E;
+  --background-second: #b4c8dc;
+  --background-editor: #2e3c4e;
   --background-tab: #4A6A87;
   --background-tab-hover: #4A6A87;
+
   --background-gradient: linear-gradient(to bottom, #4b77be, #6c7a89);
   --background-start-color: #4b77be;
   --background-end-color: #6c7a89;

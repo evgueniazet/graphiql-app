@@ -2,15 +2,24 @@
 
 import React, { Fragment, useState } from 'react';
 import styles from './main.module.scss';
+import CodeEditor from '../../components/CodeEditor';
+import Button from '../../components/Button';
+import Link from 'next/link';
+import RequestIcon from '../../icons/requestIcon';
+import PrettifyIcon from '../../icons/prettifyIcon';
+import prettify from '../../utils/prettify';
+import ReactAce from 'react-ace';
+import { useEditorContext } from '../../context/EditorContext';
+import withAuth from '../../auth/withAuth';
 import { useLanguage } from '../../context/LanguageContext';
 import { getMainText } from '../../utils/getTexts';
 import ToolsSection from './components/ToolsSection/ToolsSection';
 import ToolsEditor from './components/ToolsEditor/ToolsEditor';
 import AddIcon from '../../components/icons/AddIcon';
-import Button from '../../components/Button';
 import DeleteIcon from '../../components/icons/DeleteIcon';
 
 const MainPage = () => {
+  const { editorValue, handleEditorChange } = useEditorContext();
   const { language } = useLanguage();
   const mainText = getMainText(language || 'en');
 
@@ -20,6 +29,18 @@ const MainPage = () => {
   const [tabs, setTabs] = useState([{ id: 1, title: 'Example' }]);
   const [activeTabId, setActiveTabId] = useState(1);
 
+  const editorRef = React.useRef<ReactAce | null>(null);
+
+  const requestButtonClick = () => {
+    console.log('Value from editor:', editorValue);
+  };
+
+  const prettifyButtonClick = () => {
+    const currentCode = editorRef.current?.editor.getValue();
+
+    if (currentCode) {
+      const formattedCode = prettify(currentCode);
+      editorRef.current?.editor.setValue(formattedCode);
   const toggleVariablesEditor = () => {
     if (isHeadersEditor) {
       setHeadersEditor(false);
@@ -134,4 +155,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default withAuth(MainPage);

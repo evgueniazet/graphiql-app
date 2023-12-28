@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { redirect } from 'next/navigation';
-import { auth, logInWithEmailAndPassword } from '../../firebase';
+import { auth, logInWithEmailAndPassword } from '../../auth/firebase';
 import Button from '../../components/Button';
 import styles from './signin.module.scss';
 import validateEmail from '../../utils/validateEmail';
@@ -19,7 +19,7 @@ const SignIn = () => {
   const [passwordError, setPasswordError] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [user, loading] = useAuthState(auth);
-  const { language } = useLanguage();
+  const { language } = useLanguage();  
 
   const signInText = getSignInText(language || 'en');
 

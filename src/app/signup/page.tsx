@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { redirect } from 'next/navigation';
-import { auth, registerWithEmailAndPassword } from '../../firebase';
+import { auth, registerWithEmailAndPassword } from '../../auth/firebase';
 import Button from '../../components/Button';
 import styles from './signup.module.scss';
 import validatePassword from '../../utils/validatePassword';
@@ -93,7 +93,11 @@ const SignUp = () => {
           )}
         </div>
 
-        <Button type="submit" text={signUpText.button} onClick={register}></Button>
+        <Button
+          type="submit"
+          text={signUpText.button}
+          onClick={register}
+        ></Button>
         {error && (
           <ErrorModal errorMessage={error} onClose={() => setError(null)} />
         )}

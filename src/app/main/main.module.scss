@@ -1,5 +1,6 @@
 @use '/src/styles/abstracts/' as a;
 @import '../../styles/variables.scss';
+
 .root {
   display: flex;
   height: 100%;
@@ -8,6 +9,7 @@
   width: 100%;
   background-color: var(--background-gradient);
 }
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -85,7 +87,9 @@
       background-color: var(--background-end-color);
     }
   }
+
 }
+
 .header_item {
   display: flex;
   align-items: stretch;
@@ -102,6 +106,7 @@
       background-color: var(--background-tab-hover);
     }
   }
+
 }
 
 .tabButton_active {
@@ -135,6 +140,7 @@
   flex: 1;
   padding: 0 1rem 1rem;
 }
+
 .editors {
   display: flex;
   flex-direction: column;
@@ -144,6 +150,7 @@
   box-shadow: a.$object-box-shadow--b;
   width: 50%;
 }
+
 .editor_wrapp {
   display: flex;
   width: 100%;
@@ -151,8 +158,7 @@
   padding: 1rem;
   border-bottom: 1px solid var(--text-secondary);
 }
-.editor {
-}
+
 .editor_inner {
   overflow: hidden;
   position: relative;
@@ -207,6 +213,8 @@
     }
   }
 }
+
 .execute_button {
   background-color: var(--button-active);
 }
+

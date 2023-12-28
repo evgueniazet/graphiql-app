@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import './globals.css';
 import ErrorBoundary from '../components/ErrorBoundary/page';
 import { LanguageProvider } from '../context/LanguageContext';
+import { EditorProvider } from '../context/EditorContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,20 +17,22 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <LanguageProvider>
-      <ErrorBoundary>
-        <html lang="en">
-          <Head>
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
-          <body className={inter.className}>
-            <Header />
-            {children}
-            <Footer />
-          </body>
-        </html>
-      </ErrorBoundary>
-    </LanguageProvider>
+    <EditorProvider>
+      <LanguageProvider>
+        <ErrorBoundary>
+          <html lang="en">
+            <Head>
+              <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <body className={inter.className}>
+              <Header />
+              {children}
+              <Footer />
+            </body>
+          </html>
+        </ErrorBoundary>
+      </LanguageProvider>
+    </EditorProvider>
   );
 };
 

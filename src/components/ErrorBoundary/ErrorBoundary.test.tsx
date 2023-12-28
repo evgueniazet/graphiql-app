@@ -17,7 +17,9 @@ describe('ErrorBoundary Component', () => {
   });
 
   it('renders an error message when an error occurs', () => {
-    jest.spyOn(ErrorBoundary.prototype, 'componentDidCatch').mockImplementationOnce(() => {});
+    jest
+      .spyOn(ErrorBoundary.prototype, 'componentDidCatch')
+      .mockImplementationOnce(() => {});
 
     render(
       <ErrorBoundary>
