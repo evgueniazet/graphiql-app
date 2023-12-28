@@ -19,3 +19,4 @@ export const getSignUpText = (locale: Locale) => getTexts(locale).signup;
 export const getWelcomeText = (locale: Locale) => getTexts(locale).welcome;
 export const getHeaderText = (locale: Locale) => getTexts(locale).header;
 export const getFooterText = (locale: Locale) => getTexts(locale).footer;
+export const getMainText = (locale: Locale) => getTexts(locale).main;

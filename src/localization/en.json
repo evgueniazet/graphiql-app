@@ -35,5 +35,9 @@
   },
   "footer": {
     "authors": "Authors"
+  },
+  "main": {
+    "variablesButton": "Variables",
+    "headersButton": "Headers"
   }
 }

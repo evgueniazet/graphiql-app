@@ -28,3 +28,7 @@
     font-size: 0.9rem;
   }
 }
+
+.button.buttonActive {
+  background-color: var(--button-active);
+}

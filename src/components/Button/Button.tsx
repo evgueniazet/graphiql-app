@@ -8,6 +8,7 @@ interface IPropsButton {
   children?: ReactNode;
   className?: string;
   disabled?: boolean;
+  isActive?: boolean;
   onClick?: () => void;
 }
 
@@ -18,8 +19,9 @@ const Button = ({
   text,
   onClick,
   disabled,
+  isActive
 }: IPropsButton): ReactElement => {
-  const btnClass: string = classNames(styles.button, className);
+  const btnClass: string = classNames(styles.button, className, { [styles.buttonActive]: isActive });
 
   return (
     <button

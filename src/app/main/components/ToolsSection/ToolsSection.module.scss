@@ -1,0 +1,23 @@
+.tools {
+  cursor: row-resize;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem;
+}
+
+.tools_button_container {
+  display: flex;
+  gap: 5px;
+}
+
+.textButton {
+  background-color: transparent;
+  width: auto;
+  padding: 0 10px;
+}
+
+.iconButton {
+  background-color: transparent;
+  width: 40px;
+}
