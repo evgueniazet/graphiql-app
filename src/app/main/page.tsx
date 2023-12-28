@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import styles from './main.module.scss';
 import { useLanguage } from '../../context/LanguageContext';
 import { getMainText } from '../../utils/getTexts';
@@ -73,7 +73,7 @@ const MainPage = () => {
           <div className={styles.basic_tabs}>
             <ul className={styles.tabs_list}>
               {tabs.map((tab) => (
-                <li key={tab.id} className={`${styles.tabButton} ${
+                <li key={`${tab.id}_${Date.now()}`} className={`${styles.tabButton} ${
                   tab.id === activeTabId ? styles.tabButton_active : ''
                 }`}>
                   <Button
@@ -105,7 +105,7 @@ const MainPage = () => {
               {tabs.map(
                 (tab) =>
                   tab.id === activeTabId && (
-                    <>
+                    <Fragment key={tab.id}>
                       <div className={styles.editor_wrapp}>
                         editor-block for ${(tab.title, tab.id)}
                       </div>
@@ -123,7 +123,7 @@ const MainPage = () => {
                         )}
                         {isHeadersEditor && <ToolsEditor onChange={() => {}} />}
                       </div>
-                    </>
+                    </Fragment>
                   )
               )}
             </div>
