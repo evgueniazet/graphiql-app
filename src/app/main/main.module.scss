@@ -1,5 +1,8 @@
 @use '/src/styles/abstracts/' as a;
 @import '../../styles/variables.scss';
+
+//change all this styles
+
 .root {
   display: flex;
   height: 100%;
@@ -7,8 +10,8 @@
   overflow: hidden;
   width: 100%;
   background-color: var(--background-gradient);
-  //    a. --text--invert: #FFF;
 }
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -82,6 +85,7 @@
       background-color: var(--background-end-color);
     }
   }
+
   button {
     transition: 0.3s ease-in-out;
     border: none;
@@ -90,6 +94,7 @@
     background-color: inherit;
   }
 }
+
 .header_item {
   display: flex;
   align-items: stretch;
@@ -103,6 +108,7 @@
       background-color: var(--background-end-color);
     }
   }
+
   button {
     transition: 0.3s ease-in-out;
     border: none;
@@ -111,15 +117,18 @@
     background-color: inherit;
   }
 }
+
 .header_right {
   margin-right: 2rem;
   color: var(--background-end-color);
 }
+
 .panel {
   display: flex;
   flex: 1;
   padding: 1rem;
 }
+
 .editors {
   display: flex;
   flex-direction: column;
@@ -129,14 +138,14 @@
   box-shadow: a.$object-box-shadow--b;
   width: 50%;
 }
+
 .editor_wrapp {
   display: flex;
   width: 100%;
   padding: 1rem;
   border-bottom: 1px solid var(--text-secondary);
 }
-.editor {
-}
+
 .editor_inner {
   overflow: hidden;
   position: relative;
@@ -191,9 +200,11 @@
     }
   }
 }
+
 .execute_button {
   background-color: var(--button-active);
 }
+
 .tools {
   cursor: row-resize;
   display: flex;
@@ -204,8 +215,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    // height: 3rem;
-    // width: 3rem;
     border-radius: a.$br--6;
     transition: 0.3s ease-in-out;
     border: none;
