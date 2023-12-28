@@ -1,12 +1,19 @@
+'use client';
+
 import Image from 'next/image';
 import styles from './Footer.module.scss';
 import Link from 'next/link';
+import { useLanguage } from '../../context/LanguageContext';
+import { getFooterText } from '../../utils/getTexts';
 
 const Footer = () => {
+  const { language } = useLanguage();
+  const footerText = getFooterText(language || 'en');
+
   return (
     <footer className={styles.footer}>
       <div className={styles.footer__left}>
-        <h2 className={styles.footer__left_heading}>Authors</h2>
+        <h2 className={styles.footer__left_heading}>{footerText.authors}</h2>
         <ul className={styles.footer__people_links}>
           <li>
             <Link

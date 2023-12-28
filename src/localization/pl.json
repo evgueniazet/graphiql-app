@@ -12,10 +12,28 @@
     "button": "Zarejestruj się"
   },
   "welcome": {
-    "mainRoute": "Przejdź do strony głównej",
-    "signUpRoute": "Zarejestruj się"
+    "heading1": "Witamy w naszym narzędziu GraphiQL!",
+    "descriptionProject": "GraphiQL Playground to potężny graficzny interfejs do eksploracji i testowania zapytań GraphQL. Nasza aplikacja oferuje unikalne doświadczenie użytkownika, łącząc elastyczność i funkcjonalność do pracy z dowolnym API GraphQL.",
+    "headingFeatures": "Kluczowe Funkcje",
+    "secureAuth": "BEZPIECZNA AUTORYZACJA",
+    "firstFeat": "Dostęp do narzędzia jest ograniczony do autoryzowanych użytkowników, co zapewnia bezpieczeństwo danych i poufność.",
+    "supportAnyApi": "OBSŁUGA DOWOLNEGO API GRAPHQL",
+    "secondFeat": "Nasza aplikacja jest kompatybilna z dowolnym otwartym API GraphQL, które obsługuje CORS. Możesz również określić własny punkt końcowy do testowania.",
+    "interface": "INTUICYJNY INTERFEJS",
+    "thirdFeat": "Zawiera edytor zapytań, edytor zmiennych, edytor nagłówków, jak również sekcję dokumentacji i przeglądarkę odpowiedzi serwera.",
+    "descriptionCourse": "Ten projekt został opracowany jako część kursu React w RS School, który wyposażył nas w wiedzę i umiejętności niezbędne do budowania nowoczesnych aplikacji internetowych.",
+    "headingTeam": "Zespół Deweloperski",
+    "aboutEvgenia": "27-letnia programistka front-end skupia się na technologiach front-end, nowych doświadczeniach, eksperymentach i zabawie. Jednym z jej głównych celów życiowych jest samorozwój. Jest ciekawa, wytrwała, zdeterminowana i systematyczna, ale to nie znaczy, że jest nudna. Stara się być obiektywna i spokojna, potrafi słuchać, analizować, dyskutować i zmieniać swoje zdanie, jeśli jest w błędzie.",
+    "aboutAlexander": "Jest początkującym programistą Frontend. Rozpoczął swoje szkolenie w lipcu 2022 roku i szybko zaangażował się w proces nauki. Posiada silne pragnienie doskonalenia się w rozwoju oprogramowania oraz jest zaintrygowany tym, jak proces tworzenia produktu rozwija się w zespołach, obejmując współpracę, rozwiązywanie problemów i osiąganie konkretnych rezultatów. Jego doświadczenia życiowe i zróżnicowane doświadczenie zawodowe skłoniły go do podjęcia znaczącej i przemyślanej decyzji o poświęceniu dużej części swojego życia dziedzinie technologii informacyjnych, podejście do niej z zaangażowaniem i dokładnością. Kwitnie, pracując w zespole, czerpie radość z dzielenia się swoimi doświadczeniami oraz ma głęboką pasję do rozwoju osobistego i rozwoju zawodowego. Jego ostatecznym celem jest stać się wysoko wykwalifikowanym programistą i prawdziwym profesjonalistą w swojej dziedzinie.",
+    "aboutJulia": "Absolwentka BNTU w zakresie Zarządzania Środowiskowego i Audytu rozpoczęła karierę w IT jako projektantka interfejsów użytkownika, zanim odkryła pasję do programowania. W grudniu 2022 roku Julia rozpoczęła swoją edukację w Rolling Scope School i od tego czasu pracowała nad kilkoma projektami. Julia lubi podejmować wyzwania, które przekształcają pomysły w rzeczywiste produkty, z którymi ludzie mogą się interakcjonować. Nie boi się trudnych zadań i aspiruje do pracy nad projektami, które będą stymulować jej rozwój zawodowy."
   },
   "header": {
-    "button": "Wyloguj się"
+    "buttonSignIn": "Zaloguj się",
+    "buttonSignUp": "Zarejestruj się",
+    "buttonSignOut": "Wyloguj się",
+    "buttonMainPage": "Strona główna"
+  },
+  "footer": {
+    "authors": "Autorzy"
   }
 }

@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   gap: 10px;
+  color: var(--text-light);
   background-color: var(--background-start-color);
   transition:
     background-color 0.3s,
@@ -17,6 +18,12 @@
     font-size: 2rem;
     font-weight: 600;
   }
+
+  &__button_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 }
 
 .sticky {
@@ -30,8 +37,12 @@
     box-shadow 0.3s;
 }
 
-@media (max-width: 680px) {
+@media (max-width: 760px) {
   .header {
     padding: 1rem 1rem;
+
+    &__logo {
+      font-size: 1.25rem;
+    }
   }
 }

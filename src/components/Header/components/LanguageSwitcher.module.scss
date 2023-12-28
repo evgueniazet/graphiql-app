@@ -1,7 +1,8 @@
 .switcher {
   cursor: pointer;
-  display: inline-block;
-  height: auto;
+  display: flex;
+  align-self: center;
+  height: 40px;
   width: auto;
   padding: 0.5rem 1rem;
   font-size: 1rem;
