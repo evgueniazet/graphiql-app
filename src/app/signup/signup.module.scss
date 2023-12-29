@@ -1,5 +1,3 @@
-@import '../../styles/variables.scss';
-
 .register {
   height: 100vh;
   width: 100vw;
@@ -10,7 +8,7 @@
 }
 
 .title {
-  color: $text-secondary;
+  color: var(--text-secondary);
 }
 
 .register__container {
@@ -37,5 +35,5 @@
 
 .error {
   margin-top: 10px;
-  color: $accent-warning;
+  color: var(--accent-warning);
 }
