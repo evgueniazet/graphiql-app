@@ -87,6 +87,10 @@ const MainPage = () => {
     }
   };
 
+  const handleChangeEndpoint = () => {
+    console.log('change endpoint');
+  };
+
   return (
     <div className={styles.root}>
       <div className={styles.sidebar}>sidebar</div>
@@ -175,6 +179,26 @@ const MainPage = () => {
                   <PrettifyIcon />
                 </Button>
               </div>
+            </div>
+            <div className={styles.response_field_wrapper}>
+              <div className={styles.endpoint}>
+                <input
+                  type="text"
+                  placeholder="Enter endpoint URL"
+                  className={styles.endpoint_input}
+                />
+                <Button
+                  text="Change endpoint"
+                  type="button"
+                  className={styles.endpoint_button}
+                  onClick={handleChangeEndpoint}
+                ></Button>
+              </div>
+              <CodeEditor
+                forwardedRef={editorRef}
+                onEditorChange={handleEditorChange}
+                className={styles.response_editor}
+              />
             </div>
           </div>
         </div>
