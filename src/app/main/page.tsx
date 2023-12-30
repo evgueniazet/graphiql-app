@@ -15,19 +15,20 @@ import ToolsSection from './components/ToolsSection/ToolsSection';
 import ToolsEditor from './components/ToolsEditor/ToolsEditor';
 import AddIcon from '../../components/icons/AddIcon';
 import DeleteIcon from '../../components/icons/DeleteIcon';
+import makeRequest from '../../utils/makeRequest';
 
 const MainPage = () => {
+  const [isVariablesEditor, setVariablesEditor] = useState(false);
+  const [isHeadersEditor, setHeadersEditor] = useState(false);
+  const [activeTabId, setActiveTabId] = useState(1);
+  const [tabs, setTabs] = useState([{ id: 1, title: 'Example' }]);
+  const [endpoint, setEndpoint] = useState('');
+
+  const editorRef = React.useRef<ReactAce | null>(null);
+
   const { editorValue, handleEditorChange } = useEditorContext();
   const { language } = useLanguage();
   const mainText = getMainText(language || 'en');
-
-  const [isVariablesEditor, setVariablesEditor] = useState(false);
-  const [isHeadersEditor, setHeadersEditor] = useState(false);
-
-  const [tabs, setTabs] = useState([{ id: 1, title: 'Example' }]);
-  const [activeTabId, setActiveTabId] = useState(1);
-
-  const editorRef = React.useRef<ReactAce | null>(null);
 
   const requestButtonClick = () => {
     console.log('Value from editor:', editorValue);
@@ -87,8 +88,12 @@ const MainPage = () => {
     }
   };
 
-  const handleChangeEndpoint = () => {
-    console.log('change endpoint');
+  const handleChangeEndpoint = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEndpoint(event.target.value);
+  };
+
+  const handleChangeEndpointClick = () => {
+    makeRequest(endpoint);
   };
 
   return (
@@ -186,14 +191,17 @@ const MainPage = () => {
                   type="text"
                   placeholder="Enter endpoint URL"
                   className={styles.endpoint_input}
+                  value={endpoint}
+                  onChange={handleChangeEndpoint}
                 />
                 <Button
                   text="Change endpoint"
                   type="button"
                   className={styles.endpoint_button}
-                  onClick={handleChangeEndpoint}
+                  onClick={handleChangeEndpointClick}
                 ></Button>
               </div>
+
               <CodeEditor
                 forwardedRef={editorRef}
                 onEditorChange={handleEditorChange}
