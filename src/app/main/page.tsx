@@ -146,6 +146,8 @@ const MainPage = () => {
               type="text"
               placeholder="Enter endpoint URL"
               className={styles.endpoint_input}
+              value={endpoint}
+              onChange={handleChangeEndpoint}
             />
             <Button
               text="Change endpoint"
