@@ -47,7 +47,9 @@ const Header = () => {
   };
 
   return (
-    <header className={classNames(styles.header, { [styles.sticky]: isSticky })}>
+    <header
+      className={classNames(styles.header, { [styles.sticky]: isSticky })}
+    >
       <Link className={styles.header__logo} href="/">
         GraphiQL
       </Link>
@@ -56,15 +58,15 @@ const Header = () => {
         {user ? (
           isOnWelcomePage ? (
             <Button
-            type="button"
-            text={headerText.buttonMainPage}
-            onClick={() => router.push('/main')}
+              type="button"
+              text={headerText.buttonMainPage}
+              onClick={() => router.push('/main')}
             />
           ) : (
             <Button
-            type="button"
-            text={headerText.buttonSignOut}
-            onClick={handleLogout}
+              type="button"
+              text={headerText.buttonSignOut}
+              onClick={handleLogout}
             />
           )
         ) : (
@@ -82,7 +84,9 @@ const Header = () => {
           </>
         )}
       </div>
-      {error && <ErrorModal errorMessage={error} onClose={() => setError(null)} />}
+      {error && (
+        <ErrorModal errorMessage={error} onClose={() => setError(null)} />
+      )}
     </header>
   );
 };

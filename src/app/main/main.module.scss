@@ -50,9 +50,9 @@
   gap: 10px;
 }
 .tabs_list {
-  display: flex;
-  align-items: bottom;
-  overflow-x: auto;
+    display: flex;
+    align-items: bottom;
+    overflow-x: auto;
 }
 
 .tabButton {
@@ -70,19 +70,19 @@
 }
 
 .tabButton_active {
-  background-color: var(--background-editor);
+    background-color: var(--background-editor);
 }
 
 .tabText {
-  background-color: transparent;
-  width: auto;
-  padding-right: 10px;
+    background-color: transparent;
+    width: auto;
+    padding-right: 10px;
 
-  @media (hover: hover) {
-    &:hover {
-      background-color: transparent;
+    @media (hover: hover) {
+        &:hover {
+            background-color: transparent;
+        }
     }
-  }
 }
 
 .iconButton {
@@ -90,8 +90,8 @@
 }
 
 .deleteButton {
-  background-color: transparent;
-  width: auto;
+    background-color: transparent;
+    width: auto;
 }
 
 .editors_container {

@@ -24,7 +24,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             <Head>
               <link rel="icon" href="/favicon.ico" />
             </Head>
-            <body className={inter.className}>
+            <body suppressHydrationWarning={true} className={inter.className}>
               <Header />
               {children}
               <Footer />

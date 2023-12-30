@@ -1,6 +1,6 @@
-const fetchData = async () => {
+const makeRequest = async (endpoint: string | URL | Request) => {
   try {
-    const response = await fetch('https://spacex-production.up.railway.app/', {
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -23,10 +23,11 @@ const fetchData = async () => {
     });
 
     const result = await response.json();
-    console.log('Data:', result.data);
+    return { data: result.data };
   } catch (error) {
     console.error('Error:', error);
+    throw error;
   }
 };
 
-export default fetchData;
+export default makeRequest;
