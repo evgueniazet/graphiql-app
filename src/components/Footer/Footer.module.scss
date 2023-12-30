@@ -44,10 +44,11 @@
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 760px) {
   .footer {
     grid-template-columns: repeat(2, 1fr);
     padding: 1rem 1rem;
+    font-size: 14px;
   }
 
   .footer__left {

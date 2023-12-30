@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import AceEditor from 'react-ace';
+import classNames from 'classnames';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-monokai';
 import './editor.scss';
@@ -12,16 +13,20 @@ import styles from './CodeEditor.module.scss';
 interface CodeEditorProps {
   onEditorChange: (value: string) => void;
   forwardedRef: React.RefObject<AceEditor> | null;
+  className?: string;
 }
 
 const CodeEditor: React.FC<CodeEditorProps> = ({
   onEditorChange,
   forwardedRef,
+  className,
 }) => {
   const instructions =
     'Prettify query: Alt - Shift - F (or press the prettify button)';
 
   const [editorValue, setEditorValue] = useState(instructions);
+
+  const editorClass: string = classNames(styles.codeEditor, className);
 
   useEffect(() => {
     const handleAltShiftF = (e: KeyboardEvent) => {
@@ -61,7 +66,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         useWorker: false,
       }}
       onChange={handleEditorChange}
-      className={styles.codeEditor}
+      className={editorClass}
     />
   );
 };

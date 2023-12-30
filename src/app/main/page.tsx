@@ -15,6 +15,7 @@ import ToolsSection from './components/ToolsSection/ToolsSection';
 import ToolsEditor from './components/ToolsEditor/ToolsEditor';
 import AddIcon from '../../components/icons/AddIcon';
 import DeleteIcon from '../../components/icons/DeleteIcon';
+import DocIcon from '../../components/icons/DocIcon';
 
 const MainPage = () => {
   const { editorValue, handleEditorChange } = useEditorContext();
@@ -87,12 +88,22 @@ const MainPage = () => {
     }
   };
 
+  const handleChangeEndpoint = () => {
+    console.log('change endpoint');
+  };
+
   return (
-    <div className={styles.root}>
-      <div className={styles.sidebar}>sidebar</div>
-      <div className={styles.basic}>
-        <div className={styles.basic_wrapper}>
-          <div className={styles.basic_tabs}>
+    <div className={styles.main_container}>
+      <div className={styles.main_wrapper}>
+        <div className={styles.control_panel}>
+          <Button
+            type="button"
+            className={`${styles.iconButton} ${styles.docButton}`}
+            onClick={() => {}}
+          >
+            <DocIcon />
+          </Button>
+          <div className={styles.tabs_container}>
             <ul className={styles.tabs_list}>
               {tabs.map((tab) => (
                 <li
@@ -125,57 +136,70 @@ const MainPage = () => {
               <AddIcon />
             </Button>
           </div>
-          <div className={styles.editor_container}>
-            <div className={styles.editors}>
-              <div>
-                {tabs.map(
-                  (tab) =>
-                    tab.id === activeTabId && (
-                      <Fragment key={tab.id}>
-                        <div className={styles.editor_wrapp}>
-                          {/* editor-block for ${(tab.title, tab.id)} */}
-                          <CodeEditor
-                            forwardedRef={editorRef}
-                            onEditorChange={handleEditorChange}
-                          />
-                        </div>
-                        <div className={styles.tools_container}>
-                          <ToolsSection
-                            onToggleVariablesEditor={toggleVariablesEditor}
-                            onToggleHeadersEditor={toggleHeadersEditor}
-                            onToggleEditor={toggleEditor}
-                            isVariablesEditorActive={isVariablesEditor}
-                            isHeadersEditorActive={isHeadersEditor}
-                            mainText={mainText}
-                          />
-                          {isVariablesEditor && (
-                            <ToolsEditor onChange={() => {}} />
-                          )}
-                          {isHeadersEditor && (
-                            <ToolsEditor onChange={() => {}} />
-                          )}
-                        </div>
-                      </Fragment>
-                    )
-                )}
-              </div>
-              <div className={styles.buttons}>
-                <Button
-                  type="button"
-                  className={styles.button}
-                  onClick={requestButtonClick}
-                >
-                  <RequestIcon />
-                </Button>
-                <Button
-                  type="button"
-                  onClick={prettifyButtonClick}
-                  className={styles.button}
-                >
-                  <PrettifyIcon />
-                </Button>
-              </div>
+          <div className={styles.endpoint}>
+            <input
+              type="text"
+              placeholder="Enter endpoint URL"
+              className={styles.endpoint_input}
+            />
+            <Button
+              text="Change endpoint"
+              type="button"
+              className={styles.endpoint_button}
+              onClick={handleChangeEndpoint}
+            ></Button>
+          </div>
+        </div>
+        <div className={styles.editors_container}>
+          <div className={styles.editors_field_wrapper}>
+            <div className={styles.editors_field}>
+              {tabs.map(
+                (tab) =>
+                  tab.id === activeTabId && (
+                    <Fragment key={tab.id}>
+                      <div className={styles.request_editor_wrapper}>
+                        <CodeEditor
+                          forwardedRef={editorRef}
+                          onEditorChange={handleEditorChange}
+                        />
+                      </div>
+                      <ToolsSection
+                        onToggleVariablesEditor={toggleVariablesEditor}
+                        onToggleHeadersEditor={toggleHeadersEditor}
+                        onToggleEditor={toggleEditor}
+                        isVariablesEditorActive={isVariablesEditor}
+                        isHeadersEditorActive={isHeadersEditor}
+                        mainText={mainText}
+                      />
+                      {isVariablesEditor && <ToolsEditor onChange={() => {}} />}
+                      {isHeadersEditor && <ToolsEditor onChange={() => {}} />}
+                    </Fragment>
+                  )
+              )}
             </div>
+            <div className={styles.buttons}>
+              <Button
+                type="button"
+                className={styles.button}
+                onClick={requestButtonClick}
+              >
+                <RequestIcon />
+              </Button>
+              <Button
+                type="button"
+                onClick={prettifyButtonClick}
+                className={styles.button}
+              >
+                <PrettifyIcon />
+              </Button>
+            </div>
+          </div>
+          <div className={styles.response_field_wrapper}>
+            <CodeEditor
+              forwardedRef={editorRef}
+              onEditorChange={handleEditorChange}
+              className={styles.response_editor}
+            />
           </div>
         </div>
       </div>
