@@ -4,11 +4,10 @@
   gap: 10px;
   color: var(--text-light);
   background-color: var(--background-start-color);
-  transition:
-    background-color 0.3s,
-    padding 0.3s;
   padding: 2rem 6rem;
   transition:
+    background-color 1.0s,
+    padding 0.3s,
     top 1s,
     box-shadow 1s;
 
