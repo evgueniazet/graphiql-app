@@ -23,6 +23,8 @@ const MainPage = () => {
       asds_landings
     }
   }`;
+  const defaultHeaders = '';
+  const defaultVariables = {};
 
   const [isVariablesEditor, setVariablesEditor] = useState(false);
   const [isHeadersEditor, setHeadersEditor] = useState(false);
@@ -31,9 +33,19 @@ const MainPage = () => {
   const [endpoint, setEndpoint] = useState<string>(defaultEndpoint);
 
   const [tabData, setTabData] = useState<{
-    [key: number]: { query: string; response: string };
+    [key: number]: {
+      query: string;
+      headers: string;
+      variables: string;
+      response: string;
+    };
   }>({
-    1: { query: defaultQuery, response: '' },
+    1: {
+      query: defaultQuery,
+      headers: JSON.stringify(defaultHeaders),
+      variables: JSON.stringify(defaultVariables),
+      response: '',
+    },
   });
 
   const [response, setResponse] = useState<string>('');
@@ -80,12 +92,16 @@ const MainPage = () => {
     setTabs([...tabs, newTab]);
     setTabData((prevTabData) => ({
       ...prevTabData,
-      [newTabId]: { query: '', response: '' },
+      [newTabId]: { query: '', headers: '', variables: '', response: '' },
     }));
     setActiveTabId(newTabId);
   };
 
   const removeTab = (tabId: number) => {
+    if (tabId === 1) {
+      return;
+    }
+
     const updatedTabs = tabs.filter((tab) => tab.id !== tabId);
     setTabs(updatedTabs);
 
@@ -113,10 +129,13 @@ const MainPage = () => {
     // makeRequest(endpoint);
   };
 
-  const handleEditorChange = (code: string) => {
+  const handleEditorChange = (code: string, editorType: string) => {
     setTabData((prevTabData) => ({
       ...prevTabData,
-      [activeTabId]: { ...prevTabData[activeTabId], query: code },
+      [activeTabId]: {
+        ...prevTabData[activeTabId],
+        [editorType]: code,
+      },
     }));
   };
 
@@ -129,9 +148,17 @@ const MainPage = () => {
       const currentTabData = tabData[activeTabId];
 
       if (currentTabData) {
-        const response = await makeRequest(endpoint, currentTabData.query);
-        const responseData = response.data;
+        const parsedHeaders = JSON.parse(currentTabData.headers || '{}');
+        const parsedVariables = JSON.parse(currentTabData.variables || '{}');
 
+        const response = await makeRequest(
+          endpoint,
+          currentTabData.query,
+          parsedVariables,
+          parsedHeaders
+        );
+
+        const responseData = response.data;
         handleEditorReadOnly(JSON.stringify(responseData, null, 2));
       } else {
         console.error('No data found for the active tab.');
@@ -202,15 +229,17 @@ const MainPage = () => {
           </div>
         </div>
         <div className={styles.editors_container}>
-          <div className={styles.editors_field_wrapper}>
-            <div className={styles.editors_field}>
-              {tabs.map(
-                (tab) =>
-                  tab.id === activeTabId && (
-                    <Fragment key={tab.id}>
+          {tabs.map(
+            (tab) =>
+              tab.id === activeTabId && (
+                <div key={tab.id} className={styles.editors_field_wrapper}>
+                  <div className={styles.editors_field}>
+                    <Fragment>
                       <div className={styles.request_editor_wrapper}>
                         <CodeEditor
-                          onEditorChange={handleEditorChange}
+                          onEditorChange={(code) =>
+                            handleEditorChange(code, 'query')
+                          }
                           value={tabData[activeTabId].query}
                         />
                       </div>
@@ -222,29 +251,45 @@ const MainPage = () => {
                         isHeadersEditorActive={isHeadersEditor}
                         mainText={mainText}
                       />
-                      {isVariablesEditor && <ToolsEditor onChange={() => {}} />}
-                      {isHeadersEditor && <ToolsEditor onChange={() => {}} />}
+                      {isVariablesEditor && (
+                        <CodeEditor
+                          onEditorChange={(code) =>
+                            handleEditorChange(code, 'variables')
+                          }
+                          value={tabData[activeTabId].variables}
+                        />
+                      )}
+                      {isHeadersEditor && (
+                        <CodeEditor
+                          onEditorChange={(code) =>
+                            handleEditorChange(code, 'headers')
+                          }
+                          value={tabData[activeTabId].headers}
+                        />
+                      )}
                     </Fragment>
-                  )
-              )}
-            </div>
-            <div className={styles.buttons}>
-              <Button
-                type="button"
-                className={styles.button}
-                onClick={requestButtonClick}
-              >
-                <RequestIcon />
-              </Button>
-              <Button
-                type="button"
-                onClick={() => prettifyButtonClick(tabData[activeTabId].query)}
-                className={styles.button}
-              >
-                <PrettifyIcon />
-              </Button>
-            </div>
-          </div>
+                  </div>
+                  <div className={styles.buttons}>
+                    <Button
+                      type="button"
+                      className={styles.button}
+                      onClick={requestButtonClick}
+                    >
+                      <RequestIcon />
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={() =>
+                        prettifyButtonClick(tabData[activeTabId].query)
+                      }
+                      className={styles.button}
+                    >
+                      <PrettifyIcon />
+                    </Button>
+                  </div>
+                </div>
+              )
+          )}
           <div className={styles.response_field_wrapper}>
             <CodeEditor
               onEditorChange={() => {}}
