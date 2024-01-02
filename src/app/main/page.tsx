@@ -7,8 +7,6 @@ import Button from '../../components/Button';
 import RequestIcon from '../../icons/requestIcon';
 import PrettifyIcon from '../../icons/prettifyIcon';
 import prettify from '../../utils/prettify';
-import ReactAce from 'react-ace';
-import { useEditorContext } from '../../context/EditorContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { getMainText } from '../../utils/getTexts';
 import ToolsSection from './components/ToolsSection/ToolsSection';
@@ -19,29 +17,37 @@ import makeRequest from '../../utils/makeRequest';
 import DocIcon from '../../components/icons/DocIcon';
 
 const MainPage = () => {
+  const defaultEndpoint = 'https://spacex-production.up.railway.app/';
+  const defaultQuery = `query Cores($find: CoresFind, $order: String) {
+    cores(find: $find, order: $order) {
+      asds_landings
+    }
+  }`;
+
   const [isVariablesEditor, setVariablesEditor] = useState(false);
   const [isHeadersEditor, setHeadersEditor] = useState(false);
   const [activeTabId, setActiveTabId] = useState(1);
   const [tabs, setTabs] = useState([{ id: 1, title: 'Example' }]);
-  const [endpoint, setEndpoint] = useState('');
+  const [endpoint, setEndpoint] = useState<string>(defaultEndpoint);
 
-  const editorRef = React.useRef<ReactAce | null>(null);
+  const [tabData, setTabData] = useState<{
+    [key: number]: { query: string; response: string };
+  }>({
+    1: { query: defaultQuery, response: '' },
+  });
 
-  const { editorValue, handleEditorChange } = useEditorContext();
+  const [response, setResponse] = useState<string>('');
+
   const { language } = useLanguage();
   const mainText = getMainText(language || 'en');
 
-  const requestButtonClick = () => {
-    console.log('Value from editor:', editorValue);
-  };
+  const prettifyButtonClick = (queryToPrettify: string) => {
+    const formattedCode = prettify(queryToPrettify);
 
-  const prettifyButtonClick = () => {
-    const currentCode = editorRef.current?.editor.getValue();
-
-    if (currentCode) {
-      const formattedCode = prettify(currentCode);
-      editorRef.current?.editor.setValue(formattedCode);
-    }
+    setTabData((prevTabData) => ({
+      ...prevTabData,
+      [activeTabId]: { ...prevTabData[activeTabId], query: formattedCode },
+    }));
   };
 
   const toggleVariablesEditor = () => {
@@ -70,8 +76,12 @@ const MainPage = () => {
 
   const addNewTab = () => {
     const newTabId = tabs.length + 1;
-    const newTab = { id: newTabId, title: 'NewTab' };
+    const newTab = { id: newTabId, title: `NewTab № ${newTabId}` };
     setTabs([...tabs, newTab]);
+    setTabData((prevTabData) => ({
+      ...prevTabData,
+      [newTabId]: { query: '', response: '' },
+    }));
     setActiveTabId(newTabId);
   };
 
@@ -87,6 +97,12 @@ const MainPage = () => {
         setActiveTabId(1);
       }
     }
+
+    setTabData((prevTabData) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { [tabId]: removedTab, ...restTabData } = prevTabData;
+      return restTabData;
+    });
   };
 
   const handleChangeEndpoint = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,7 +110,35 @@ const MainPage = () => {
   };
 
   const handleChangeEndpointClick = () => {
-    makeRequest(endpoint);
+    // makeRequest(endpoint);
+  };
+
+  const handleEditorChange = (code: string) => {
+    setTabData((prevTabData) => ({
+      ...prevTabData,
+      [activeTabId]: { ...prevTabData[activeTabId], query: code },
+    }));
+  };
+
+  const handleEditorReadOnly = (responseValue: string) => {
+    setResponse(responseValue);
+  };
+
+  const requestButtonClick = async () => {
+    try {
+      const currentTabData = tabData[activeTabId];
+
+      if (currentTabData) {
+        const response = await makeRequest(endpoint, currentTabData.query);
+        const responseData = response.data;
+
+        handleEditorReadOnly(JSON.stringify(responseData, null, 2));
+      } else {
+        console.error('No data found for the active tab.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
@@ -146,6 +190,8 @@ const MainPage = () => {
               type="text"
               placeholder="Enter endpoint URL"
               className={styles.endpoint_input}
+              value={endpoint}
+              onChange={handleChangeEndpoint}
             />
             <Button
               text="Change endpoint"
@@ -164,8 +210,8 @@ const MainPage = () => {
                     <Fragment key={tab.id}>
                       <div className={styles.request_editor_wrapper}>
                         <CodeEditor
-                          forwardedRef={editorRef}
                           onEditorChange={handleEditorChange}
+                          value={tabData[activeTabId].query}
                         />
                       </div>
                       <ToolsSection
@@ -192,7 +238,7 @@ const MainPage = () => {
               </Button>
               <Button
                 type="button"
-                onClick={prettifyButtonClick}
+                onClick={() => prettifyButtonClick(tabData[activeTabId].query)}
                 className={styles.button}
               >
                 <PrettifyIcon />
@@ -201,9 +247,10 @@ const MainPage = () => {
           </div>
           <div className={styles.response_field_wrapper}>
             <CodeEditor
-              forwardedRef={editorRef}
-              onEditorChange={handleEditorChange}
+              onEditorChange={() => {}}
               className={styles.response_editor}
+              isReadOnly={true}
+              value={response}
             />
           </div>
         </div>

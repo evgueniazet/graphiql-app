@@ -6,7 +6,6 @@ import Header from '../components/Header';
 import './globals.css';
 import ErrorBoundary from '../components/ErrorBoundary/page';
 import { LanguageProvider } from '../context/LanguageContext';
-import { EditorProvider } from '../context/EditorContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,7 +16,6 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <EditorProvider>
       <LanguageProvider>
         <ErrorBoundary>
           <html lang="en">
@@ -32,7 +30,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           </html>
         </ErrorBoundary>
       </LanguageProvider>
-    </EditorProvider>
   );
 };
 

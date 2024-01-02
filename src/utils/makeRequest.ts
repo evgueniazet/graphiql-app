@@ -1,4 +1,4 @@
-const makeRequest = async (endpoint: string | URL | Request) => {
+const makeRequest = async (endpoint: string | URL | Request, query: string) => {
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -7,17 +7,7 @@ const makeRequest = async (endpoint: string | URL | Request) => {
       },
       body: JSON.stringify({
         query: `
-            query {
-                company {
-                    founder
-                    founded
-                    employees
-                    cto
-                  }
-                  coresPast {
-                    asds_landings
-                  }
-            }
+         ${query}
           `,
       }),
     });
