@@ -77,12 +77,6 @@ export default function Welcome() {
               </p>
             </div>
             <div className={styles.feature}>
-              <h4 className={styles.heading4}>Alexander Abyzov</h4>
-              <p className={styles.description_card}>
-                {welcomeText.aboutAlexander}
-              </p>
-            </div>
-            <div className={styles.feature}>
               <h4 className={styles.heading4}>Julia Holadava</h4>
               <p className={styles.description_card}>
                 {welcomeText.aboutJulia}
