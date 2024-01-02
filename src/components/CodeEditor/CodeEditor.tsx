@@ -42,6 +42,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
       }}
       onChange={handleEditorChange}
       className={editorClass}
+      
     />
   );
 };

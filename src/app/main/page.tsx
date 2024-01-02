@@ -10,7 +10,6 @@ import prettify from '../../utils/prettify';
 import { useLanguage } from '../../context/LanguageContext';
 import { getMainText } from '../../utils/getTexts';
 import ToolsSection from './components/ToolsSection/ToolsSection';
-import ToolsEditor from './components/ToolsEditor/ToolsEditor';
 import AddIcon from '../../components/icons/AddIcon';
 import DeleteIcon from '../../components/icons/DeleteIcon';
 import makeRequest from '../../utils/makeRequest';
@@ -140,8 +139,19 @@ const MainPage = () => {
   };
 
   const handleEditorReadOnly = (responseValue: string) => {
-    setResponse(responseValue);
+    try {
+      // Attempt to parse the responseValue as JSON
+      const parsedResponse = JSON.parse(responseValue);
+  
+      // If successful, set the parsed response as the state
+      setResponse(JSON.stringify(parsedResponse, null, 2).replace(/\\n/g, '\n').replace(/\\/g, ''));
+    } catch (error) {
+      // If parsing fails, set the original responseValue as the state
+      setResponse(responseValue);
+    }
   };
+  
+  
 
   const requestButtonClick = async () => {
     try {
@@ -165,6 +175,9 @@ const MainPage = () => {
       }
     } catch (error) {
       console.error('Error:', error);
+      handleEditorReadOnly(
+        JSON.stringify({ error: (error as Error).message }, null, 2)
+      );
     }
   };
 
