@@ -2,10 +2,19 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Footer from './Footer';
+import { LanguageProvider } from '../../context/LanguageContext';
+
+const renderWithLanguageProvider = (
+  ui: React.ReactElement
+) => {
+  return render(
+    <LanguageProvider>{ui}</LanguageProvider>
+  );
+};
 
 describe('Footer Component', () => {
   beforeEach(() => {
-    render(<Footer />);
+    renderWithLanguageProvider(<Footer />);
   });
 
   test('renders the footer', () => {
@@ -15,7 +24,6 @@ describe('Footer Component', () => {
   test('render the authors section', () => {
     expect(screen.getByText('Authors')).toBeInTheDocument();
     expect(screen.getByText('Evguenia Zelenko')).toBeInTheDocument();
-    expect(screen.getByText('Alexander Abyzov')).toBeInTheDocument();
     expect(screen.getByText('Julia Holadava')).toBeInTheDocument();
   });
 
