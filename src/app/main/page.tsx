@@ -26,6 +26,8 @@ const MainPage = () => {
   const [tabs, setTabs] = useState([{ id: 1, title: 'Example' }]);
   const [endpoint, setEndpoint] = useState('');
   const [isDocOpen, setIsDocOpen] = useState(false);
+  const [isSDLFetched, setIsSDLFetched] = useState(false);
+  const [schemaData, setSchemaData] = useState(null);
 
   const editorRef = React.useRef<ReactAce | null>(null);
 
@@ -96,23 +98,58 @@ const MainPage = () => {
   };
 
   const handleChangeEndpointClick = () => {
-    makeRequest(endpoint);
+    // makeRequest(endpoint);
   };
 
-  const docButtonClick = () => {
+  async function fetchSDL() {
+    try {
+      const query = `
+        query IntrospectionQuery {
+          __schema {
+            queryType {
+              name
+            }
+          }
+        }
+      `;
+      const variables = {};
+      const headers = {};
+
+      const response = await makeRequest(endpoint, query, variables, headers);
+      if (response.data) {
+        setSchemaData(response.data);
+        setIsSDLFetched(true);
+        return response.data;
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (error) {
+      console.error('Error fetching SDL:', error);
+      setIsSDLFetched(false);
+      throw error;
+    }
+  }
+
+  const docButtonClick = async () => {
+    if (!isSDLFetched) {
+      try {
+        await fetchSDL();
+      } catch (error) {
+        console.error('Failed to fetch SDL:', error);
+        return;
+      }
+    }
     setIsDocOpen(!isDocOpen);
   };
 
   return (
     <div className={styles.main_container}>
       <div className={styles.main_wrapper_out}>
-        <div
-          className={`${styles.docSection} ${
-            isDocOpen ? styles.docSectionOpened : styles.docSectionClosed
-          }`}
-        >
-          <DocSection />
-        </div>
+        {isDocOpen && isSDLFetched && schemaData && (
+          <div className={`${styles.docSection} ${styles.docSectionOpened}`}>
+            <DocSection schemaData={schemaData} />
+          </div>
+        )}
         <div className={styles.main_wrapper}>
           <div className={styles.control_panel}>
             <Button
