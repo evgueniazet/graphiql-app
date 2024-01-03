@@ -22,7 +22,7 @@ const MainPage = () => {
       asds_landings
     }
   }`;
-  const defaultHeaders = '';
+  const defaultHeaders = {};
   const defaultVariables = {};
 
   const [isVariablesEditor, setVariablesEditor] = useState(false);
