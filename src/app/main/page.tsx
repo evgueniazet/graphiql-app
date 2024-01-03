@@ -17,6 +17,7 @@ import AddIcon from '../../components/icons/AddIcon';
 import DeleteIcon from '../../components/icons/DeleteIcon';
 import makeRequest from '../../utils/makeRequest';
 import DocIcon from '../../components/icons/DocIcon';
+import DocSection from './components/DocSection/DocSection';
 
 const MainPage = () => {
   const [isVariablesEditor, setVariablesEditor] = useState(false);
@@ -24,6 +25,7 @@ const MainPage = () => {
   const [activeTabId, setActiveTabId] = useState(1);
   const [tabs, setTabs] = useState([{ id: 1, title: 'Example' }]);
   const [endpoint, setEndpoint] = useState('');
+  const [isDocOpen, setIsDocOpen] = useState(false);
 
   const editorRef = React.useRef<ReactAce | null>(null);
 
@@ -97,116 +99,131 @@ const MainPage = () => {
     makeRequest(endpoint);
   };
 
+  const docButtonClick = () => {
+    setIsDocOpen(!isDocOpen);
+  };
+
   return (
     <div className={styles.main_container}>
-      <div className={styles.main_wrapper}>
-        <div className={styles.control_panel}>
-          <Button
-            type="button"
-            className={`${styles.iconButton} ${styles.docButton}`}
-            onClick={() => {}}
-          >
-            <DocIcon />
-          </Button>
-          <div className={styles.tabs_container}>
-            <ul className={styles.tabs_list}>
-              {tabs.map((tab) => (
-                <li
-                  key={`${tab.id}_${Date.now()}`}
-                  className={`${styles.tabButton} ${
-                    tab.id === activeTabId ? styles.tabButton_active : ''
-                  }`}
-                >
-                  <Button
-                    type="button"
-                    text={tab.title}
-                    className={styles.tabText}
-                    onClick={() => setActiveTabId(tab.id)}
-                  />
-                  <Button
-                    type="button"
-                    className={styles.deleteButton}
-                    onClick={() => removeTab(tab.id)}
-                  >
-                    <DeleteIcon />
-                  </Button>
-                </li>
-              ))}
-            </ul>
-            <Button
-              type="button"
-              className={styles.iconButton}
-              onClick={addNewTab}
-            >
-              <AddIcon />
-            </Button>
-          </div>
-          <div className={styles.endpoint}>
-            <input
-              type="text"
-              placeholder="Enter endpoint URL"
-              className={styles.endpoint_input}
-              value={endpoint}
-              onChange={handleChangeEndpoint}
-            />
-            <Button
-              text="Change endpoint"
-              type="button"
-              className={styles.endpoint_button}
-              onClick={handleChangeEndpointClick}
-            ></Button>
-          </div>
+      <div className={styles.main_wrapper_out}>
+        <div
+          className={`${styles.docSection} ${
+            isDocOpen ? styles.docSectionOpened : styles.docSectionClosed
+          }`}
+        >
+          <DocSection />
         </div>
-        <div className={styles.editors_container}>
-          <div className={styles.editors_field_wrapper}>
-            <div className={styles.editors_field}>
-              {tabs.map(
-                (tab) =>
-                  tab.id === activeTabId && (
-                    <Fragment key={tab.id}>
-                      <div className={styles.request_editor_wrapper}>
-                        <CodeEditor
-                          forwardedRef={editorRef}
-                          onEditorChange={handleEditorChange}
-                        />
-                      </div>
-                      <ToolsSection
-                        onToggleVariablesEditor={toggleVariablesEditor}
-                        onToggleHeadersEditor={toggleHeadersEditor}
-                        onToggleEditor={toggleEditor}
-                        isVariablesEditorActive={isVariablesEditor}
-                        isHeadersEditorActive={isHeadersEditor}
-                        mainText={mainText}
-                      />
-                      {isVariablesEditor && <ToolsEditor onChange={() => {}} />}
-                      {isHeadersEditor && <ToolsEditor onChange={() => {}} />}
-                    </Fragment>
-                  )
-              )}
+        <div className={styles.main_wrapper}>
+          <div className={styles.control_panel}>
+            <Button
+              type="button"
+              className={`${styles.iconButton} ${styles.docButton}`}
+              onClick={docButtonClick}
+            >
+              <DocIcon />
+            </Button>
+            <div className={styles.tabs_container}>
+              <ul className={styles.tabs_list}>
+                {tabs.map((tab) => (
+                  <li
+                    key={`${tab.id}_${Date.now()}`}
+                    className={`${styles.tabButton} ${
+                      tab.id === activeTabId ? styles.tabButton_active : ''
+                    }`}
+                  >
+                    <Button
+                      type="button"
+                      text={tab.title}
+                      className={styles.tabText}
+                      onClick={() => setActiveTabId(tab.id)}
+                    />
+                    <Button
+                      type="button"
+                      className={styles.deleteButton}
+                      onClick={() => removeTab(tab.id)}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+              <Button
+                type="button"
+                className={styles.iconButton}
+                onClick={addNewTab}
+              >
+                <AddIcon />
+              </Button>
             </div>
-            <div className={styles.buttons}>
+            <div className={styles.endpoint}>
+              <input
+                type="text"
+                placeholder="Enter endpoint URL"
+                className={styles.endpoint_input}
+                value={endpoint}
+                onChange={handleChangeEndpoint}
+              />
               <Button
+                text="Change endpoint"
                 type="button"
-                className={styles.button}
-                onClick={requestButtonClick}
-              >
-                <RequestIcon />
-              </Button>
-              <Button
-                type="button"
-                onClick={prettifyButtonClick}
-                className={styles.button}
-              >
-                <PrettifyIcon />
-              </Button>
+                className={styles.endpoint_button}
+                onClick={handleChangeEndpointClick}
+              ></Button>
             </div>
           </div>
-          <div className={styles.response_field_wrapper}>
-            <CodeEditor
-              forwardedRef={editorRef}
-              onEditorChange={handleEditorChange}
-              className={styles.response_editor}
-            />
+          <div className={styles.editors_container}>
+            <div className={styles.editors_field_wrapper}>
+              <div className={styles.editors_field}>
+                {tabs.map(
+                  (tab) =>
+                    tab.id === activeTabId && (
+                      <Fragment key={tab.id}>
+                        <div className={styles.request_editor_wrapper}>
+                          <CodeEditor
+                            forwardedRef={editorRef}
+                            onEditorChange={handleEditorChange}
+                          />
+                        </div>
+                        <ToolsSection
+                          onToggleVariablesEditor={toggleVariablesEditor}
+                          onToggleHeadersEditor={toggleHeadersEditor}
+                          onToggleEditor={toggleEditor}
+                          isVariablesEditorActive={isVariablesEditor}
+                          isHeadersEditorActive={isHeadersEditor}
+                          mainText={mainText}
+                        />
+                        {isVariablesEditor && (
+                          <ToolsEditor onChange={() => {}} />
+                        )}
+                        {isHeadersEditor && <ToolsEditor onChange={() => {}} />}
+                      </Fragment>
+                    )
+                )}
+              </div>
+              <div className={styles.buttons}>
+                <Button
+                  type="button"
+                  className={styles.button}
+                  onClick={requestButtonClick}
+                >
+                  <RequestIcon />
+                </Button>
+                <Button
+                  type="button"
+                  onClick={prettifyButtonClick}
+                  className={styles.button}
+                >
+                  <PrettifyIcon />
+                </Button>
+              </div>
+            </div>
+            <div className={styles.response_field_wrapper}>
+              <CodeEditor
+                forwardedRef={editorRef}
+                onEditorChange={handleEditorChange}
+                className={styles.response_editor}
+              />
+            </div>
           </div>
         </div>
       </div>
