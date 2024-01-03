@@ -1,15 +1,15 @@
 .ace-monokai .ace_gutter {
-  background-color: transparent;
+    background-color: transparent;
 }
 
 .ace-monokai .ace_gutter-active-line {
-  background-color: transparent;
+    background-color: transparent;
 }
 
-.ace_dark > .ace_mobile-menu {
-  display: none;
+.ace_dark>.ace_mobile-menu {
+    display: none;
 }
 
 .ace-monokai .ace_marker-layer .ace_selection {
-  background-color: transparent;
+    background-color: var(--background-end-color);
 }
