@@ -4,8 +4,8 @@ import React, { Fragment, useState } from 'react';
 import styles from './main.module.scss';
 import CodeEditor from '../../components/CodeEditor';
 import Button from '../../components/Button';
-import RequestIcon from '../../icons/requestIcon';
-import PrettifyIcon from '../../icons/prettifyIcon';
+import RequestIcon from '../../components/icons/RequestIcon';
+import PrettifyIcon from '../../components/icons/PrettifyIcon';
 import prettify from '../../utils/prettify';
 import { useLanguage } from '../../context/LanguageContext';
 import { getMainText } from '../../utils/getTexts';
@@ -254,30 +254,39 @@ const MainPage = () => {
                           value={tabData[activeTabId].query}
                         />
                       </div>
-                      <ToolsSection
-                        onToggleVariablesEditor={toggleVariablesEditor}
-                        onToggleHeadersEditor={toggleHeadersEditor}
-                        onToggleEditor={toggleEditor}
-                        isVariablesEditorActive={isVariablesEditor}
-                        isHeadersEditorActive={isHeadersEditor}
-                        mainText={mainText}
-                      />
-                      {isVariablesEditor && (
-                        <CodeEditor
-                          onEditorChange={(code) =>
-                            handleEditorChange(code, 'variables')
-                          }
-                          value={tabData[activeTabId].variables}
-                        />
-                      )}
-                      {isHeadersEditor && (
-                        <CodeEditor
-                          onEditorChange={(code) =>
-                            handleEditorChange(code, 'headers')
-                          }
-                          value={tabData[activeTabId].headers}
-                        />
-                      )}
+                      <div className={styles.tools_section_wrapper}>
+                        <div
+                          className={`${styles.tools_section} ${
+                            (isVariablesEditor || isHeadersEditor) &&
+                            styles.tools_section_active
+                          }`}
+                        >
+                          <ToolsSection
+                            onToggleVariablesEditor={toggleVariablesEditor}
+                            onToggleHeadersEditor={toggleHeadersEditor}
+                            onToggleEditor={toggleEditor}
+                            isVariablesEditorActive={isVariablesEditor}
+                            isHeadersEditorActive={isHeadersEditor}
+                            mainText={mainText}
+                          />
+                          {isVariablesEditor && (
+                            <CodeEditor
+                              onEditorChange={(code) =>
+                                handleEditorChange(code, 'variables')
+                              }
+                              value={tabData[activeTabId].variables}
+                            />
+                          )}
+                          {isHeadersEditor && (
+                            <CodeEditor
+                              onEditorChange={(code) =>
+                                handleEditorChange(code, 'headers')
+                              }
+                              value={tabData[activeTabId].headers}
+                            />
+                          )}
+                        </div>
+                      </div>
                     </Fragment>
                   </div>
                   <div className={styles.buttons}>

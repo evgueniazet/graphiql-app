@@ -1,23 +1,28 @@
 .tools {
-  cursor: row-resize;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 1rem 1rem 0;
+    cursor: row-resize;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem 1rem 0;
 }
 
 .tools_button_container {
-  display: flex;
-  gap: 5px;
+    display: flex;
+    gap: 5px;
 }
 
 .textButton {
-  background-color: transparent;
-  width: auto;
-  padding: 0 10px;
+    background-color: transparent;
+    width: auto;
+    padding: 0 10px;
 }
 
 .iconButton {
-  background-color: transparent;
-  width: 40px;
+    background-color: transparent;
+    width: 40px;
+    transform: rotate(180deg);
+}
+
+.chevronIconReversed {
+    transform: rotate(0deg);
 }
