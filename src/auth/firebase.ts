@@ -20,13 +20,12 @@ class CustomError extends Error {
 //TODO:replace firebaseConfig to .env file
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDIXJ5YT7hoNbBFqK3TBcV41-TzIO-7n7w',
-  authDomain: 'fir-auth-6edd8.firebaseapp.com',
-  projectId: 'fir-auth-6edd8',
-  storageBucket: 'fir-auth-6edd8.appspot.com',
-  messagingSenderId: '904760319835',
-  appId: '1:904760319835:web:44fd0d957f114b4e51447e',
-  measurementId: 'G-Q4TYKH9GG7',
+  apiKey: 'AIzaSyCVrJXvhBFy6qVLzo8-Qe-X41lXx5cpMyo',
+  authDomain: 'graph-ql2.firebaseapp.com',
+  projectId: 'graph-ql2',
+  storageBucket: 'graph-ql2.appspot.com',
+  messagingSenderId: '503547212035',
+  appId: '1:503547212035:web:80992c37643dbf9302f936',
 };
 
 const app = initializeApp(firebaseConfig);

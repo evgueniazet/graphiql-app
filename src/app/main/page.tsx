@@ -140,18 +140,16 @@ const MainPage = () => {
 
   const handleEditorReadOnly = (responseValue: string) => {
     try {
-      // Attempt to parse the responseValue as JSON
       const parsedResponse = JSON.parse(responseValue);
-  
-      // If successful, set the parsed response as the state
-      setResponse(JSON.stringify(parsedResponse, null, 2).replace(/\\n/g, '\n').replace(/\\/g, ''));
+      setResponse(
+        JSON.stringify(parsedResponse, null, 2)
+          .replace(/\\n/g, '\n')
+          .replace(/\\/g, '')
+      );
     } catch (error) {
-      // If parsing fails, set the original responseValue as the state
       setResponse(responseValue);
     }
   };
-  
-  
 
   const requestButtonClick = async () => {
     try {
