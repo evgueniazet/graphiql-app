@@ -1,10 +1,15 @@
 import styles from './DocSection.module.scss';
+import RenderSchema from './RenderSchema';
 
-const DocSection = ({ schemaData }) => {
+type DocSchemaProps<T> = {
+  schemaData: T;
+}
+
+const DocSection = <T,>({ schemaData }: DocSchemaProps<T>) => {
   return (
     <div className={styles.docSection_wrapper}>
       <h3 className={styles.heading}>Documentation</h3>
-      <pre>{JSON.stringify(schemaData, null, 2)}</pre>
+      <RenderSchema data={schemaData} />
     </div>
   )
 };
