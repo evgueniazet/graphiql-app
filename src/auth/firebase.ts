@@ -17,8 +17,6 @@ class CustomError extends Error {
   }
 }
 
-//TODO:replace firebaseConfig to .env file
-
 const firebaseConfig = {
   apiKey: 'AIzaSyCVrJXvhBFy6qVLzo8-Qe-X41lXx5cpMyo',
   authDomain: 'graph-ql2.firebaseapp.com',
