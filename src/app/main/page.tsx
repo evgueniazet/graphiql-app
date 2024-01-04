@@ -106,8 +106,48 @@ const MainPage = () => {
       const query = `
         query IntrospectionQuery {
           __schema {
-            queryType {
+            types {
               name
+              kind
+              fields {
+                name
+                type {
+                  kind
+                  name
+                  ofType {
+                    kind
+                    name
+                    ofType {
+                      kind
+                      name
+                      ...moreNestedTypes
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        fragment moreNestedTypes on __Type {
+          fields {
+            name
+            type {
+              kind
+              name
+              ofType {
+                kind
+                name
+                ...on __Type {
+                  fields {
+                    name
+                    type {
+                      kind
+                      name
+                    }
+                  }
+                }
+              }
             }
           }
         }
