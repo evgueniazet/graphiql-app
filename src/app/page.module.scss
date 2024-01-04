@@ -45,7 +45,7 @@
 .features_container {
   grid-area: features;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: minmax(80px, auto);
   grid-gap: 1rem;
 }
@@ -61,6 +61,14 @@
   text-transform: uppercase;
   color: var(--text-accent);
   margin: 0 0 1rem 0;
+}
+
+.developer_container {
+  grid-area: features;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: minmax(80px, auto);
+  grid-gap: 1rem;
 }
 
 .description_card {

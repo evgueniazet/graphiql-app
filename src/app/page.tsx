@@ -69,7 +69,7 @@ export default function Welcome() {
           <div className={styles.heading3_container}>
             <h3 className={styles.heading3}>{welcomeText.headingTeam}</h3>
           </div>
-          <div className={styles.features_container}>
+          <div className={styles.developer_container}>
             <div className={styles.feature}>
               <h4 className={styles.heading4}>Evguenia Zelenko</h4>
               <p className={styles.description_card}>
