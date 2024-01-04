@@ -152,10 +152,8 @@ const MainPage = () => {
           }
         }
       `;
-      const variables = {};
-      const headers = {};
 
-      const response = await makeRequest(endpoint, query, variables, headers);
+      const response = await makeRequest(endpoint, query, {}, {});
       if (response.data) {
         setSchemaData(response.data);
         setIsSDLFetched(true);
