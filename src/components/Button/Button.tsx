@@ -19,9 +19,11 @@ const Button = ({
   text,
   onClick,
   disabled,
-  isActive
+  isActive,
 }: IPropsButton): ReactElement => {
-  const btnClass: string = classNames(styles.button, className, { [styles.buttonActive]: isActive });
+  const btnClass: string = classNames(styles.button, className, {
+    [styles.buttonActive]: isActive,
+  });
 
   return (
     <button

@@ -40,9 +40,7 @@ export default function Welcome() {
           <div className={styles.features_container}>
             <div className={styles.feature}>
               <h4 className={styles.heading4}>{welcomeText.secureAuth}</h4>
-              <p className={styles.description_card}>
-                {welcomeText.firstFeat}
-              </p>
+              <p className={styles.description_card}>{welcomeText.firstFeat}</p>
             </div>
             <div className={styles.feature}>
               <h4 className={styles.heading4}>{welcomeText.supportAnyApi}</h4>
@@ -52,9 +50,7 @@ export default function Welcome() {
             </div>
             <div className={styles.feature}>
               <h4 className={styles.heading4}>{welcomeText.interface}</h4>
-              <p className={styles.description_card}>
-                {welcomeText.thirdFeat}
-              </p>
+              <p className={styles.description_card}>{welcomeText.thirdFeat}</p>
             </div>
           </div>
         </section>

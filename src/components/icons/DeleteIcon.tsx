@@ -7,16 +7,8 @@ const DeleteIcon = () => (
     aria-hidden="true"
   >
     <title>Delete icon</title>
-    <path
-      d="M2 2L14 14"
-      stroke="currentColor"
-      strokeWidth="2"
-    ></path>
-    <path
-      d="M14 2L2 14"
-      stroke="currentColor"
-      strokeWidth="2"
-    ></path>
+    <path d="M2 2L14 14" stroke="currentColor" strokeWidth="2"></path>
+    <path d="M14 2L2 14" stroke="currentColor" strokeWidth="2"></path>
   </svg>
 );
 

@@ -19,7 +19,7 @@ const SignIn = () => {
   const [passwordError, setPasswordError] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [user, loading] = useAuthState(auth);
-  const { language } = useLanguage();  
+  const { language } = useLanguage();
 
   const signInText = getSignInText(language || 'en');
 

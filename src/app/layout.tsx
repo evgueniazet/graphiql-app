@@ -16,20 +16,20 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-      <LanguageProvider>
-        <ErrorBoundary>
-          <html lang="en">
-            <Head>
-              <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <body suppressHydrationWarning={true} className={inter.className}>
-              <Header />
-              {children}
-              <Footer />
-            </body>
-          </html>
-        </ErrorBoundary>
-      </LanguageProvider>
+    <LanguageProvider>
+      <ErrorBoundary>
+        <html lang="en">
+          <Head>
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
+          <body suppressHydrationWarning={true} className={inter.className}>
+            <Header />
+            {children}
+            <Footer />
+          </body>
+        </html>
+      </ErrorBoundary>
+    </LanguageProvider>
   );
 };
 
