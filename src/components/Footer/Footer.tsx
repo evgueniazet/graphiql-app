@@ -34,23 +34,6 @@ const Footer = () => {
           </li>
           <li>
             <Link
-              href="https://github.com/sardn"
-              className={styles.footer__authors_link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/icons8-github.svg"
-                className={styles.footer__authors_icon}
-                alt="GitHub Icon"
-                width={20}
-                height={20}
-              />
-              Alexander Abyzov
-            </Link>
-          </li>
-          <li>
-            <Link
               href="https://github.com/juliaholadava"
               className={styles.footer__authors_link}
               target="_blank"
