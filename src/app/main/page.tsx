@@ -14,6 +14,7 @@ import AddIcon from '../../components/icons/AddIcon';
 import DeleteIcon from '../../components/icons/DeleteIcon';
 import makeRequest from '../../utils/makeRequest';
 import DocIcon from '../../components/icons/DocIcon';
+import DocSection from './components/DocSection/DocSection';
 
 const MainPage = () => {
   const defaultEndpoint = 'https://spacex-production.up.railway.app/';
@@ -30,6 +31,9 @@ const MainPage = () => {
   const [activeTabId, setActiveTabId] = useState(1);
   const [tabs, setTabs] = useState([{ id: 1, title: 'Example' }]);
   const [endpoint, setEndpoint] = useState<string>(defaultEndpoint);
+  const [isDocOpen, setIsDocOpen] = useState(false);
+  const [isSDLFetched, setIsSDLFetched] = useState(false);
+  const [schemaData, setSchemaData] = useState(null);
 
   const [tabData, setTabData] = useState<{
     [key: number]: {
@@ -125,7 +129,7 @@ const MainPage = () => {
   };
 
   const handleChangeEndpointClick = () => {
-    // makeRequest(endpoint);
+    // // makeRequest(endpoint);
   };
 
   const handleEditorChange = (code: string, editorType: string) => {
@@ -179,144 +183,230 @@ const MainPage = () => {
     }
   };
 
+  async function fetchSDL() {
+    try {
+      const query = `
+        query IntrospectionQuery {
+          __schema {
+            types {
+              name
+              kind
+              fields {
+                name
+                type {
+                  kind
+                  name
+                  ofType {
+                    kind
+                    name
+                    ofType {
+                      kind
+                      name
+                      ...moreNestedTypes
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        fragment moreNestedTypes on __Type {
+          fields {
+            name
+            type {
+              kind
+              name
+              ofType {
+                kind
+                name
+                ...on __Type {
+                  fields {
+                    name
+                    type {
+                      kind
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `;
+
+      const response = await makeRequest(endpoint, query, {}, {});
+      if (response.data) {
+        setSchemaData(response.data);
+        setIsSDLFetched(true);
+        return response.data;
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (error) {
+      console.error('Error fetching SDL:', error);
+      setIsSDLFetched(false);
+      throw error;
+    }
+  }
+
+  const docButtonClick = async () => {
+    if (!isSDLFetched) {
+      try {
+        await fetchSDL();
+      } catch (error) {
+        console.error('Failed to fetch SDL:', error);
+        return;
+      }
+    }
+    setIsDocOpen(!isDocOpen);
+  };
+
   return (
     <div className={styles.main_container}>
-      <div className={styles.main_wrapper}>
-        <div className={styles.control_panel}>
-          <Button
-            type="button"
-            className={`${styles.iconButton} ${styles.docButton}`}
-            onClick={() => {}}
-          >
-            <DocIcon />
-          </Button>
-          <div className={styles.tabs_container}>
-            <ul className={styles.tabs_list}>
-              {tabs.map((tab) => (
-                <li
-                  key={`${tab.id}_${Date.now()}`}
-                  className={`${styles.tabButton} ${
-                    tab.id === activeTabId ? styles.tabButton_active : ''
-                  }`}
-                >
-                  <Button
-                    type="button"
-                    text={tab.title}
-                    className={styles.tabText}
-                    onClick={() => setActiveTabId(tab.id)}
-                  />
-                  <Button
-                    type="button"
-                    className={styles.deleteButton}
-                    onClick={() => removeTab(tab.id)}
-                  >
-                    <DeleteIcon />
-                  </Button>
-                </li>
-              ))}
-            </ul>
+      <div className={styles.main_wrapper_out}>
+        {isDocOpen && isSDLFetched && schemaData && (
+          <div className={`${styles.docSection} ${styles.docSectionOpened}`}>
+            <DocSection schemaData={schemaData} />
+          </div>
+        )}
+        <div className={styles.main_wrapper}>
+          <div className={styles.control_panel}>
             <Button
               type="button"
-              className={styles.iconButton}
-              onClick={addNewTab}
+              className={`${styles.iconButton} ${styles.docButton}`}
+              onClick={docButtonClick}
             >
-              <AddIcon />
+              <DocIcon />
             </Button>
+            <div className={styles.tabs_container}>
+              <ul className={styles.tabs_list}>
+                {tabs.map((tab) => (
+                  <li
+                    key={`${tab.id}_${Date.now()}`}
+                    className={`${styles.tabButton} ${
+                      tab.id === activeTabId ? styles.tabButton_active : ''
+                    }`}
+                  >
+                    <Button
+                      type="button"
+                      text={tab.title}
+                      className={styles.tabText}
+                      onClick={() => setActiveTabId(tab.id)}
+                    />
+                    <Button
+                      type="button"
+                      className={styles.deleteButton}
+                      onClick={() => removeTab(tab.id)}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+              <Button
+                type="button"
+                className={styles.iconButton}
+                onClick={addNewTab}
+              >
+                <AddIcon />
+              </Button>
+            </div>
+            <div className={styles.endpoint}>
+              <input
+                type="text"
+                placeholder="Enter endpoint URL"
+                className={styles.endpoint_input}
+                value={endpoint}
+                onChange={handleChangeEndpoint}
+              />
+              <Button
+                text="Change endpoint"
+                type="button"
+                className={styles.endpoint_button}
+                onClick={handleChangeEndpointClick}
+              ></Button>
+            </div>
           </div>
-          <div className={styles.endpoint}>
-            <input
-              type="text"
-              placeholder="Enter endpoint URL"
-              className={styles.endpoint_input}
-              value={endpoint}
-              onChange={handleChangeEndpoint}
-            />
-            <Button
-              text="Change endpoint"
-              type="button"
-              className={styles.endpoint_button}
-              onClick={handleChangeEndpointClick}
-            ></Button>
-          </div>
-        </div>
-        <div className={styles.editors_container}>
-          {tabs.map(
-            (tab) =>
-              tab.id === activeTabId && (
-                <div key={tab.id} className={styles.editors_field_wrapper}>
-                  <div className={styles.editors_field}>
-                    <Fragment>
-                      <div className={styles.request_editor_wrapper}>
-                        <CodeEditor
-                          onEditorChange={(code) =>
-                            handleEditorChange(code, 'query')
-                          }
-                          value={tabData[activeTabId].query}
-                        />
-                      </div>
-                      <div className={styles.tools_section_wrapper}>
-                        <div
-                          className={`${styles.tools_section} ${
-                            (isVariablesEditor || isHeadersEditor) &&
-                            styles.tools_section_active
-                          }`}
-                        >
-                          <ToolsSection
-                            onToggleVariablesEditor={toggleVariablesEditor}
-                            onToggleHeadersEditor={toggleHeadersEditor}
-                            onToggleEditor={toggleEditor}
-                            isVariablesEditorActive={isVariablesEditor}
-                            isHeadersEditorActive={isHeadersEditor}
-                            mainText={mainText}
+          <div className={styles.editors_container}>
+            {tabs.map(
+              (tab) =>
+                tab.id === activeTabId && (
+                  <div key={tab.id} className={styles.editors_field_wrapper}>
+                    <div className={styles.editors_field}>
+                      <Fragment>
+                        <div className={styles.request_editor_wrapper}>
+                          <CodeEditor
+                            onEditorChange={(code) =>
+                              handleEditorChange(code, 'query')
+                            }
+                            value={tabData[activeTabId].query}
                           />
-                          {isVariablesEditor && (
-                            <CodeEditor
-                              onEditorChange={(code) =>
-                                handleEditorChange(code, 'variables')
-                              }
-                              value={tabData[activeTabId].variables}
-                            />
-                          )}
-                          {isHeadersEditor && (
-                            <CodeEditor
-                              onEditorChange={(code) =>
-                                handleEditorChange(code, 'headers')
-                              }
-                              value={tabData[activeTabId].headers}
-                            />
-                          )}
                         </div>
-                      </div>
-                    </Fragment>
+                        <div className={styles.tools_section_wrapper}>
+                          <div
+                            className={`${styles.tools_section} ${
+                              (isVariablesEditor || isHeadersEditor) &&
+                              styles.tools_section_active
+                            }`}
+                          >
+                            <ToolsSection
+                              onToggleVariablesEditor={toggleVariablesEditor}
+                              onToggleHeadersEditor={toggleHeadersEditor}
+                              onToggleEditor={toggleEditor}
+                              isVariablesEditorActive={isVariablesEditor}
+                              isHeadersEditorActive={isHeadersEditor}
+                              mainText={mainText}
+                            />
+                            {isVariablesEditor && (
+                              <CodeEditor
+                                onEditorChange={(code) =>
+                                  handleEditorChange(code, 'variables')
+                                }
+                                value={tabData[activeTabId].variables}
+                              />
+                            )}
+                            {isHeadersEditor && (
+                              <CodeEditor
+                                onEditorChange={(code) =>
+                                  handleEditorChange(code, 'headers')
+                                }
+                                value={tabData[activeTabId].headers}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </Fragment>
+                    </div>
+                    <div className={styles.buttons}>
+                      <Button
+                        type="button"
+                        className={styles.button}
+                        onClick={requestButtonClick}
+                      >
+                        <RequestIcon />
+                      </Button>
+                      <Button
+                        type="button"
+                        onClick={() =>
+                          prettifyButtonClick(tabData[activeTabId].query)
+                        }
+                        className={styles.button}
+                      >
+                        <PrettifyIcon />
+                      </Button>
+                    </div>
                   </div>
-                  <div className={styles.buttons}>
-                    <Button
-                      type="button"
-                      className={styles.button}
-                      onClick={requestButtonClick}
-                    >
-                      <RequestIcon />
-                    </Button>
-                    <Button
-                      type="button"
-                      onClick={() =>
-                        prettifyButtonClick(tabData[activeTabId].query)
-                      }
-                      className={styles.button}
-                    >
-                      <PrettifyIcon />
-                    </Button>
-                  </div>
-                </div>
-              )
-          )}
-          <div className={styles.response_field_wrapper}>
-            <CodeEditor
-              onEditorChange={() => {}}
-              className={styles.response_editor}
-              isReadOnly={true}
-              value={response}
-            />
+                )
+            )}
+            <div className={styles.response_field_wrapper}>
+              <CodeEditor
+                onEditorChange={() => {}}
+                className={styles.response_editor}
+                isReadOnly={true}
+                value={response}
+              />
+            </div>
           </div>
         </div>
       </div>

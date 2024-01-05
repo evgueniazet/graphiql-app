@@ -12,6 +12,7 @@ import classNames from 'classnames';
 import { getHeaderText } from '../../utils/getTexts';
 import { useLanguage } from '../../context/LanguageContext';
 import ErrorModal from '../ErrorModal';
+import HeaderPlaceholder from './components/HeaderPlaceholder';
 
 const Header = () => {
   const [isSticky, setSticky] = useState(false);
@@ -27,7 +28,7 @@ const Header = () => {
 
   const handleScroll = () => {
     const offset = window.scrollY;
-    setSticky(offset > 50);
+    setSticky(offset >= 50);
   };
 
   useEffect(() => {
@@ -47,47 +48,50 @@ const Header = () => {
   };
 
   return (
-    <header
-      className={classNames(styles.header, { [styles.sticky]: isSticky })}
-    >
-      <Link className={styles.header__logo} href="/">
-        GraphiQL
-      </Link>
-      <LanguageSwitcher />
-      <div className={styles.header__button_container}>
-        {user ? (
-          isOnWelcomePage ? (
-            <Button
-              type="button"
-              text={headerText.buttonMainPage}
-              onClick={() => router.push('/main')}
-            />
+    <>
+      <header
+        className={classNames(styles.header, { [styles.sticky]: isSticky })}
+      >
+        <Link className={styles.header__logo} href="/">
+          GraphiQL
+        </Link>
+        <LanguageSwitcher />
+        <div className={styles.header__button_container}>
+          {user ? (
+            isOnWelcomePage ? (
+              <Button
+                type="button"
+                text={headerText.buttonMainPage}
+                onClick={() => router.push('/main')}
+              />
+            ) : (
+              <Button
+                type="button"
+                text={headerText.buttonSignOut}
+                onClick={handleLogout}
+              />
+            )
           ) : (
-            <Button
-              type="button"
-              text={headerText.buttonSignOut}
-              onClick={handleLogout}
-            />
-          )
-        ) : (
-          <>
-            <Button
-              type="button"
-              text={headerText.buttonSignIn}
-              onClick={() => router.push('/signin')}
-            />
-            <Button
-              type="button"
-              text={headerText.buttonSignUp}
-              onClick={() => router.push('/signup')}
-            />
-          </>
+            <>
+              <Button
+                type="button"
+                text={headerText.buttonSignIn}
+                onClick={() => router.push('/signin')}
+              />
+              <Button
+                type="button"
+                text={headerText.buttonSignUp}
+                onClick={() => router.push('/signup')}
+              />
+            </>
+          )}
+        </div>
+        {error && (
+          <ErrorModal errorMessage={error} onClose={() => setError(null)} />
         )}
-      </div>
-      {error && (
-        <ErrorModal errorMessage={error} onClose={() => setError(null)} />
-      )}
-    </header>
+      </header>
+      <HeaderPlaceholder isVisible={isSticky} />
+    </>
   );
 };
 
