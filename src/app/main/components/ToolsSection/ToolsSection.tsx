@@ -2,15 +2,7 @@ import React from 'react';
 import Button from '../../../../components/Button';
 import ChevronUpIcon from '../../../../components/icons/ChevronUpIcon';
 import styles from './ToolsSection.module.scss';
-
-export interface ToolsProps {
-  onToggleVariablesEditor: () => void;
-  onToggleHeadersEditor: () => void;
-  onToggleEditor: () => void;
-  isVariablesEditorActive: boolean;
-  isHeadersEditorActive: boolean;
-  mainText: { variablesButton: string; headersButton: string };
-}
+import { ToolsProps } from './interfaces/ToolsProps';
 
 const ToolsSection: React.FC<ToolsProps> = ({
   onToggleVariablesEditor,
