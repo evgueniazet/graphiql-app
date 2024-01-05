@@ -4,6 +4,7 @@ const ChevronUpIcon = () => (
     viewBox="0 0 14 9"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    data-testid="chevron-up-icon" 
   >
     <title>Chevron up icon</title>
     <path d="M13 8L7 2L1 8" stroke="currentColor" strokeWidth="1.5" />

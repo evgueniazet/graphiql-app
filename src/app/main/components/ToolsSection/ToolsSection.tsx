@@ -3,7 +3,7 @@ import Button from '../../../../components/Button';
 import ChevronUpIcon from '../../../../components/icons/ChevronUpIcon';
 import styles from './ToolsSection.module.scss';
 
-interface ToolsProps {
+export interface ToolsProps {
   onToggleVariablesEditor: () => void;
   onToggleHeadersEditor: () => void;
   onToggleEditor: () => void;
