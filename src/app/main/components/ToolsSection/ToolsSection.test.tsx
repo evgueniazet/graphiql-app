@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import ToolsSection, { ToolsProps } from './ToolsSection';
+import ToolsSection from './ToolsSection';
+import { ToolsProps } from './interfaces/ToolsProps';
 
-// Mock the function props
 const mockToggleVariablesEditor = jest.fn();
 const mockToggleHeadersEditor = jest.fn();
 const mockToggleEditor = jest.fn();
