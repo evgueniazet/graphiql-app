@@ -1,6 +1,6 @@
 type RenderSchemaProps<T> = {
   data: T;
-}
+};
 
 const RenderSchema = <T,>({ data }: RenderSchemaProps<T>) => {
   if (typeof data === 'object' && data !== null) {
@@ -14,8 +14,8 @@ const RenderSchema = <T,>({ data }: RenderSchemaProps<T>) => {
       </ul>
     );
   } else {
-    return <span>{String(data)}</span>
-  };
+    return <span>{String(data)}</span>;
+  }
 };
 
 export default RenderSchema;

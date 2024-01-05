@@ -4,15 +4,12 @@ import React, { Fragment, useState } from 'react';
 import styles from './main.module.scss';
 import CodeEditor from '../../components/CodeEditor';
 import Button from '../../components/Button';
-import RequestIcon from '../../icons/requestIcon';
-import PrettifyIcon from '../../icons/prettifyIcon';
+import RequestIcon from '../../components/icons/RequestIcon';
+import PrettifyIcon from '../../components/icons/PrettifyIcon';
 import prettify from '../../utils/prettify';
-import ReactAce from 'react-ace';
-import { useEditorContext } from '../../context/EditorContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { getMainText } from '../../utils/getTexts';
 import ToolsSection from './components/ToolsSection/ToolsSection';
-import ToolsEditor from './components/ToolsEditor/ToolsEditor';
 import AddIcon from '../../components/icons/AddIcon';
 import DeleteIcon from '../../components/icons/DeleteIcon';
 import makeRequest from '../../utils/makeRequest';
@@ -20,32 +17,52 @@ import DocIcon from '../../components/icons/DocIcon';
 import DocSection from './components/DocSection/DocSection';
 
 const MainPage = () => {
+  const defaultEndpoint = 'https://spacex-production.up.railway.app/';
+  const defaultQuery = `query Cores($find: CoresFind, $order: String) {
+    cores(find: $find, order: $order) {
+      asds_landings
+    }
+  }`;
+  const defaultHeaders = {};
+  const defaultVariables = {};
+
   const [isVariablesEditor, setVariablesEditor] = useState(false);
   const [isHeadersEditor, setHeadersEditor] = useState(false);
   const [activeTabId, setActiveTabId] = useState(1);
   const [tabs, setTabs] = useState([{ id: 1, title: 'Example' }]);
-  const [endpoint, setEndpoint] = useState('');
+  const [endpoint, setEndpoint] = useState<string>(defaultEndpoint);
   const [isDocOpen, setIsDocOpen] = useState(false);
   const [isSDLFetched, setIsSDLFetched] = useState(false);
   const [schemaData, setSchemaData] = useState(null);
 
-  const editorRef = React.useRef<ReactAce | null>(null);
+  const [tabData, setTabData] = useState<{
+    [key: number]: {
+      query: string;
+      headers: string;
+      variables: string;
+      response: string;
+    };
+  }>({
+    1: {
+      query: defaultQuery,
+      headers: JSON.stringify(defaultHeaders),
+      variables: JSON.stringify(defaultVariables),
+      response: '',
+    },
+  });
 
-  const { editorValue, handleEditorChange } = useEditorContext();
+  const [response, setResponse] = useState<string>('');
+
   const { language } = useLanguage();
   const mainText = getMainText(language || 'en');
 
-  const requestButtonClick = () => {
-    console.log('Value from editor:', editorValue);
-  };
+  const prettifyButtonClick = (queryToPrettify: string) => {
+    const formattedCode = prettify(queryToPrettify);
 
-  const prettifyButtonClick = () => {
-    const currentCode = editorRef.current?.editor.getValue();
-
-    if (currentCode) {
-      const formattedCode = prettify(currentCode);
-      editorRef.current?.editor.setValue(formattedCode);
-    }
+    setTabData((prevTabData) => ({
+      ...prevTabData,
+      [activeTabId]: { ...prevTabData[activeTabId], query: formattedCode },
+    }));
   };
 
   const toggleVariablesEditor = () => {
@@ -74,12 +91,20 @@ const MainPage = () => {
 
   const addNewTab = () => {
     const newTabId = tabs.length + 1;
-    const newTab = { id: newTabId, title: 'NewTab' };
+    const newTab = { id: newTabId, title: `NewTab № ${newTabId}` };
     setTabs([...tabs, newTab]);
+    setTabData((prevTabData) => ({
+      ...prevTabData,
+      [newTabId]: { query: '', headers: '', variables: '', response: '' },
+    }));
     setActiveTabId(newTabId);
   };
 
   const removeTab = (tabId: number) => {
+    if (tabId === 1) {
+      return;
+    }
+
     const updatedTabs = tabs.filter((tab) => tab.id !== tabId);
     setTabs(updatedTabs);
 
@@ -91,6 +116,12 @@ const MainPage = () => {
         setActiveTabId(1);
       }
     }
+
+    setTabData((prevTabData) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { [tabId]: removedTab, ...restTabData } = prevTabData;
+      return restTabData;
+    });
   };
 
   const handleChangeEndpoint = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +129,58 @@ const MainPage = () => {
   };
 
   const handleChangeEndpointClick = () => {
-    // makeRequest(endpoint);
+    // // makeRequest(endpoint);
+  };
+
+  const handleEditorChange = (code: string, editorType: string) => {
+    setTabData((prevTabData) => ({
+      ...prevTabData,
+      [activeTabId]: {
+        ...prevTabData[activeTabId],
+        [editorType]: code,
+      },
+    }));
+  };
+
+  const handleEditorReadOnly = (responseValue: string) => {
+    try {
+      const parsedResponse = JSON.parse(responseValue);
+      setResponse(
+        JSON.stringify(parsedResponse, null, 2)
+          .replace(/\\n/g, '\n')
+          .replace(/\\/g, '')
+      );
+    } catch (error) {
+      setResponse(responseValue);
+    }
+  };
+
+  const requestButtonClick = async () => {
+    try {
+      const currentTabData = tabData[activeTabId];
+
+      if (currentTabData) {
+        const parsedHeaders = JSON.parse(currentTabData.headers || '{}');
+        const parsedVariables = JSON.parse(currentTabData.variables || '{}');
+
+        const response = await makeRequest(
+          endpoint,
+          currentTabData.query,
+          parsedVariables,
+          parsedHeaders
+        );
+
+        const responseData = response.data;
+        handleEditorReadOnly(JSON.stringify(responseData, null, 2));
+      } else {
+        console.error('No data found for the active tab.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      handleEditorReadOnly(
+        JSON.stringify({ error: (error as Error).message }, null, 2)
+      );
+    }
   };
 
   async function fetchSDL() {
@@ -247,56 +329,82 @@ const MainPage = () => {
             </div>
           </div>
           <div className={styles.editors_container}>
-            <div className={styles.editors_field_wrapper}>
-              <div className={styles.editors_field}>
-                {tabs.map(
-                  (tab) =>
-                    tab.id === activeTabId && (
-                      <Fragment key={tab.id}>
+            {tabs.map(
+              (tab) =>
+                tab.id === activeTabId && (
+                  <div key={tab.id} className={styles.editors_field_wrapper}>
+                    <div className={styles.editors_field}>
+                      <Fragment>
                         <div className={styles.request_editor_wrapper}>
                           <CodeEditor
-                            forwardedRef={editorRef}
-                            onEditorChange={handleEditorChange}
+                            onEditorChange={(code) =>
+                              handleEditorChange(code, 'query')
+                            }
+                            value={tabData[activeTabId].query}
                           />
                         </div>
-                        <ToolsSection
-                          onToggleVariablesEditor={toggleVariablesEditor}
-                          onToggleHeadersEditor={toggleHeadersEditor}
-                          onToggleEditor={toggleEditor}
-                          isVariablesEditorActive={isVariablesEditor}
-                          isHeadersEditorActive={isHeadersEditor}
-                          mainText={mainText}
-                        />
-                        {isVariablesEditor && (
-                          <ToolsEditor onChange={() => {}} />
-                        )}
-                        {isHeadersEditor && <ToolsEditor onChange={() => {}} />}
+                        <div className={styles.tools_section_wrapper}>
+                          <div
+                            className={`${styles.tools_section} ${
+                              (isVariablesEditor || isHeadersEditor) &&
+                              styles.tools_section_active
+                            }`}
+                          >
+                            <ToolsSection
+                              onToggleVariablesEditor={toggleVariablesEditor}
+                              onToggleHeadersEditor={toggleHeadersEditor}
+                              onToggleEditor={toggleEditor}
+                              isVariablesEditorActive={isVariablesEditor}
+                              isHeadersEditorActive={isHeadersEditor}
+                              mainText={mainText}
+                            />
+                            {isVariablesEditor && (
+                              <CodeEditor
+                                onEditorChange={(code) =>
+                                  handleEditorChange(code, 'variables')
+                                }
+                                value={tabData[activeTabId].variables}
+                              />
+                            )}
+                            {isHeadersEditor && (
+                              <CodeEditor
+                                onEditorChange={(code) =>
+                                  handleEditorChange(code, 'headers')
+                                }
+                                value={tabData[activeTabId].headers}
+                              />
+                            )}
+                          </div>
+                        </div>
                       </Fragment>
-                    )
-                )}
-              </div>
-              <div className={styles.buttons}>
-                <Button
-                  type="button"
-                  className={styles.button}
-                  onClick={requestButtonClick}
-                >
-                  <RequestIcon />
-                </Button>
-                <Button
-                  type="button"
-                  onClick={prettifyButtonClick}
-                  className={styles.button}
-                >
-                  <PrettifyIcon />
-                </Button>
-              </div>
-            </div>
+                    </div>
+                    <div className={styles.buttons}>
+                      <Button
+                        type="button"
+                        className={styles.button}
+                        onClick={requestButtonClick}
+                      >
+                        <RequestIcon />
+                      </Button>
+                      <Button
+                        type="button"
+                        onClick={() =>
+                          prettifyButtonClick(tabData[activeTabId].query)
+                        }
+                        className={styles.button}
+                      >
+                        <PrettifyIcon />
+                      </Button>
+                    </div>
+                  </div>
+                )
+            )}
             <div className={styles.response_field_wrapper}>
               <CodeEditor
-                forwardedRef={editorRef}
-                onEditorChange={handleEditorChange}
+                onEditorChange={() => {}}
                 className={styles.response_editor}
+                isReadOnly={true}
+                value={response}
               />
             </div>
           </div>

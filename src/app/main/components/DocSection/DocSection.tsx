@@ -3,7 +3,7 @@ import RenderSchema from './RenderSchema';
 
 type DocSchemaProps<T> = {
   schemaData: T;
-}
+};
 
 const DocSection = <T,>({ schemaData }: DocSchemaProps<T>) => {
   return (
@@ -11,7 +11,7 @@ const DocSection = <T,>({ schemaData }: DocSchemaProps<T>) => {
       <h3 className={styles.heading}>Documentation</h3>
       <RenderSchema data={schemaData} />
     </div>
-  )
+  );
 };
 
 export default DocSection;

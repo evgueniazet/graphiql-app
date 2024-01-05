@@ -8,11 +8,7 @@ interface EditorProps {
 const Editor: React.FC<EditorProps> = ({ onChange }) => {
   return (
     <div className={styles.editor}>
-      <input
-        type="text"
-        className={styles.editor_input}
-        onChange={onChange}
-      />
+      <input type="text" className={styles.editor_input} onChange={onChange} />
     </div>
   );
 };

@@ -4,12 +4,8 @@ import '@testing-library/jest-dom';
 import Footer from './Footer';
 import { LanguageProvider } from '../../context/LanguageContext';
 
-const renderWithLanguageProvider = (
-  ui: React.ReactElement
-) => {
-  return render(
-    <LanguageProvider>{ui}</LanguageProvider>
-  );
+const renderWithLanguageProvider = (ui: React.ReactElement) => {
+  return render(<LanguageProvider>{ui}</LanguageProvider>);
 };
 
 describe('Footer Component', () => {

@@ -90,7 +90,7 @@ const Header = () => {
           <ErrorModal errorMessage={error} onClose={() => setError(null)} />
         )}
       </header>
-      <HeaderPlaceholder isVisible={isSticky}/>
+      <HeaderPlaceholder isVisible={isSticky} />
     </>
   );
 };
