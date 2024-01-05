@@ -134,10 +134,6 @@ const MainPage = () => {
     setEndpoint(event.target.value);
   };
 
-  const handleChangeEndpointClick = () => {
-    // // makeRequest(endpoint);
-  };
-
   const handleEditorChange = (code: string, editorType: string) => {
     setTabData((prevTabData) => ({
       ...prevTabData,
@@ -326,12 +322,6 @@ const MainPage = () => {
                 value={endpoint}
                 onChange={handleChangeEndpoint}
               />
-              <Button
-                text="Change endpoint"
-                type="button"
-                className={styles.endpoint_button}
-                onClick={handleChangeEndpointClick}
-              ></Button>
             </div>
           </div>
           <div className={styles.editors_container}>

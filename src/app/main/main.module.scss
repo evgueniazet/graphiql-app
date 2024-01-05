@@ -43,16 +43,13 @@
   margin-left: auto;
 }
 
-.endpoint_button {
-  margin-left: 10px;
-  margin-bottom: 10px;
-}
-
 .endpoint_input {
   height: 40px;
   margin-bottom: 10px;
   border: 1px solid var(--background-end-color);
   border-radius: 4px;
+  padding: 4px;
+  width: 30vw;
 }
 
 .tabs_container {
