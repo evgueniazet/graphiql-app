@@ -18,13 +18,19 @@ import DocSection from './components/DocSection/DocSection';
 
 const MainPage = () => {
   const defaultEndpoint = 'https://spacex-production.up.railway.app/';
-  const defaultQuery = `query Cores($find: CoresFind, $order: String) {
-    cores(find: $find, order: $order) {
-      asds_landings
+  const defaultQuery = `query Query($dragonId: ID!) {
+    dragon(id: $dragonId) {
+      description
+      diameter {
+        feet
+        meters
+      }
     }
   }`;
   const defaultHeaders = {};
-  const defaultVariables = {};
+  const defaultVariables = {
+    dragonId: '5e9d058859b1ffd8e2ad5f90',
+  };
 
   const [isVariablesEditor, setVariablesEditor] = useState(false);
   const [isHeadersEditor, setHeadersEditor] = useState(false);
