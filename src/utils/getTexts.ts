@@ -1,7 +1,6 @@
 import en from '../localization/en.json';
 import pl from '../localization/pl.json';
-
-type Locale = 'en' | 'pl';
+import { Locale } from '../types/Locale';
 
 export const getTexts = (locale: Locale) => {
   switch (locale) {

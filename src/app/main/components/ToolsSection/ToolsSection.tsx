@@ -18,8 +18,13 @@ const ToolsSection: React.FC<ToolsProps> = ({
   onToggleEditor,
   isVariablesEditorActive,
   isHeadersEditorActive,
-  mainText
+  mainText,
 }) => {
+  const chevronIconClass =
+    isVariablesEditorActive || isHeadersEditorActive
+      ? styles.chevronIconReversed
+      : styles.chevronIcon;
+
   return (
     <div className={styles.tools}>
       <div className={styles.tools_button_container}>
@@ -40,13 +45,13 @@ const ToolsSection: React.FC<ToolsProps> = ({
       </div>
       <Button
         type="button"
-        className={styles.iconButton}
+        className={`${styles.iconButton} ${chevronIconClass}`}
         onClick={onToggleEditor}
       >
         <ChevronUpIcon />
       </Button>
     </div>
   );
-}
+};
 
 export default ToolsSection;
