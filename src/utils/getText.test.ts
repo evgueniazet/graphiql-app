@@ -76,8 +76,8 @@ describe('individual text functions', () => {
       const result = getMainText(locale);
       const expected =
         locale === 'en'
-          ? { variablesButton: 'Variables', headersButton: 'Headers' }
-          : { variablesButton: 'Zmienne', headersButton: 'Nagłówki' };
+          ? { variablesButton: 'Variables', headersButton: 'Headers', doc: 'Documentation' }
+          : { variablesButton: 'Zmienne', headersButton: 'Nagłówki', doc: 'Dokumentacja' };
       expect(result).toEqual(expected);
     });
   }
