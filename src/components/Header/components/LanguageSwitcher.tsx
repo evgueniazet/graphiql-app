@@ -2,7 +2,7 @@
 
 import React, { ChangeEvent } from 'react';
 import styles from './LanguageSwitcher.module.scss';
-import { useLanguage } from '../../../context/LanguageContext';
+import { useLanguage } from '../../../context/LanguageContext/LanguageContext';
 import { Locale } from '../../../types/Locale';
 
 const LanguageSwitcher = () => {
