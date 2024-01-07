@@ -38,6 +38,7 @@
   },
   "main": {
     "variablesButton": "Zmienne",
-    "headersButton": "Nagłówki"
+    "headersButton": "Nagłówki",
+    "doc": "Dokumentacja"
   }
 }

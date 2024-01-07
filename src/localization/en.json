@@ -38,6 +38,7 @@
   },
   "main": {
     "variablesButton": "Variables",
-    "headersButton": "Headers"
+    "headersButton": "Headers",
+    "doc": "Documentation"
   }
 }
