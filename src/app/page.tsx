@@ -2,7 +2,7 @@
 
 import styles from './page.module.scss';
 import { getWelcomeText } from '../utils/getTexts';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
 
 export default function Welcome() {
   const { language } = useLanguage();

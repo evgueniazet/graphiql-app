@@ -2,13 +2,14 @@
 
 import React, { Fragment, useEffect, useState } from 'react';
 import { GraphQLSchema, buildClientSchema } from 'graphql';
+import { useRouter } from 'next/navigation';
 import styles from './main.module.scss';
 import CodeEditor from '../../components/CodeEditor';
 import Button from '../../components/Button';
 import RequestIcon from '../../components/icons/RequestIcon';
 import PrettifyIcon from '../../components/icons/PrettifyIcon';
 import prettify from '../../utils/prettify';
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext/LanguageContext';
 import { getMainText } from '../../utils/getTexts';
 import ToolsSection from './components/ToolsSection/ToolsSection';
 import AddIcon from '../../components/icons/AddIcon';
@@ -16,8 +17,24 @@ import DeleteIcon from '../../components/icons/DeleteIcon';
 import makeRequest from '../../utils/makeRequest';
 import DocIcon from '../../components/icons/DocIcon';
 import DocSection from './components/DocSection/DocSection';
+import { useAuth } from '../../context/AuthContext/AuthContext';
+import { logout } from '../../auth/firebase';
 
 const MainPage = () => {
+  const { isExp, isAuth, isLoading } = useAuth();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoading) {
+      return;
+    }
+
+    if (!isAuth) {
+      router.replace('/');
+    }
+  }, [isLoading, isAuth, router]);
+
   const defaultEndpoint = 'https://spacex-production.up.railway.app/';
   const defaultQuery = `query Query($dragonId: ID!) {
     dragon(id: $dragonId) {
@@ -36,7 +53,7 @@ const MainPage = () => {
   const [isVariablesEditor, setVariablesEditor] = useState(false);
   const [isHeadersEditor, setHeadersEditor] = useState(false);
   const [activeTabId, setActiveTabId] = useState(1);
-  const [tabs, setTabs] = useState([{ id: 1, title: 'Example' }]);
+  const [tabs, setTabs] = useState([{ id: 1, title: '№ 1' }]);
   const [endpoint, setEndpoint] = useState<string>(defaultEndpoint);
   const [isDocOpen, setIsDocOpen] = useState(false);
   const [isSDLFetched, setIsSDLFetched] = useState(false);
@@ -62,6 +79,7 @@ const MainPage = () => {
   const [response, setResponse] = useState<string>('');
 
   const { language } = useLanguage();
+
   const mainText = getMainText(language || 'en');
 
   const prettifyButtonClick = (queryToPrettify: string) => {
@@ -99,7 +117,7 @@ const MainPage = () => {
 
   const addNewTab = () => {
     const newTabId = tabs.length + 1;
-    const newTab = { id: newTabId, title: `NewTab № ${newTabId}` };
+    const newTab = { id: newTabId, title: `№ ${newTabId}` };
     setTabs([...tabs, newTab]);
     setTabData((prevTabData) => ({
       ...prevTabData,
@@ -310,6 +328,14 @@ const MainPage = () => {
   const docButtonClick = () => {
     setIsDocOpen(!isDocOpen);
   };
+
+  useEffect(() => {
+    if (isExp) {
+      logout();
+      localStorage.removeItem('accessToken');
+      router.push('/');
+    }
+  }, [isExp, router]);
 
   return (
     <div className={styles.main_container}>

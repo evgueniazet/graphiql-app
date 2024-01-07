@@ -10,7 +10,8 @@ import validatePassword from '../../utils/validatePassword';
 import validateEmail from '../../utils/validateEmail';
 import ErrorModal from '../../components/ErrorModal';
 import { getSignUpText } from '../../utils/getTexts';
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext/LanguageContext';
+import { User } from '../../types/User';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -57,8 +58,11 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if (loading) return;
-    if (user) redirect('/main');
+    if (user && 'accessToken' in user) {
+      const { accessToken } = user as User;
+      localStorage.setItem('accessToken', accessToken);
+      redirect('/main');
+    }
   }, [user, loading]);
 
   return (

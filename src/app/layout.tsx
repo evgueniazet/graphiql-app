@@ -5,7 +5,8 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import './globals.css';
 import ErrorBoundary from '../components/ErrorBoundary/page';
-import { LanguageProvider } from '../context/LanguageContext';
+import { LanguageProvider } from '../context/LanguageContext/LanguageContext';
+import { AuthProvider } from '../context/AuthContext/AuthContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,11 +23,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           <Head>
             <link rel="icon" href="/favicon.ico" />
           </Head>
-          <body suppressHydrationWarning={true} className={inter.className}>
-            <Header />
-            {children}
-            <Footer />
-          </body>
+          <AuthProvider>
+            <body suppressHydrationWarning={true} className={inter.className}>
+              <Header />
+              {children}
+              <Footer />
+            </body>
+          </AuthProvider>
         </html>
       </ErrorBoundary>
     </LanguageProvider>
