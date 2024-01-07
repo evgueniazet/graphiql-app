@@ -1,6 +1,8 @@
 import { GraphQLSchema, isObjectType } from 'graphql';
 import styles from './DocSection.module.scss';
 import RenderFields from './RenderFields';
+import { useLanguage } from '../../../../context/LanguageContext/LanguageContext';
+import { getMainText } from '../../../../utils/getTexts';
 
 type DocSectionProps = {
   schemaAST: GraphQLSchema;
@@ -13,9 +15,13 @@ const DocSection: React.FC<DocSectionProps> = ({ schemaAST }) => {
     schemaAST.getSubscriptionType(),
   ].filter(Boolean);
 
+  const { language } = useLanguage();
+
+  const mainText = getMainText(language || 'en');
+
   return (
     <div className={styles.docSection_wrapper}>
-      <h3 className={styles.heading}>Documentation</h3>
+      <h3 className={styles.heading}>{mainText.doc}</h3>
       {rootTypes.map(
         (type) =>
           type && (
