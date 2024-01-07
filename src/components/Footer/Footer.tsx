@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import styles from './Footer.module.scss';
 import Link from 'next/link';
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext/LanguageContext';
 import { getFooterText } from '../../utils/getTexts';
 
 const Footer = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useLanguage, LanguageProvider } from './LanguageContext';
-import { Locale } from '../types/Locale';
+import { Locale } from '../../types/Locale';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),

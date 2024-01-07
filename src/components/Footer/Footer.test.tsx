@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Footer from './Footer';
-import { LanguageProvider } from '../../context/LanguageContext';
+import { LanguageProvider } from '../../context/LanguageContext/LanguageContext';
 
 const renderWithLanguageProvider = (ui: React.ReactElement) => {
   return render(<LanguageProvider>{ui}</LanguageProvider>);

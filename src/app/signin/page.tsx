@@ -10,7 +10,9 @@ import validateEmail from '../../utils/validateEmail';
 import validatePassword from '../../utils/validatePassword';
 import ErrorModal from '../../components/ErrorModal';
 import { getSignInText } from '../../utils/getTexts';
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext/LanguageContext';
+import { User } from '../../types/User';
+import { useAuth } from '../../context/AuthContext/AuthContext';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -20,6 +22,7 @@ const SignIn = () => {
   const [error, setError] = useState<string | null>(null);
   const [user, loading] = useAuthState(auth);
   const { language } = useLanguage();
+  const { updateAuthStatus } = useAuth();
 
   const signInText = getSignInText(language || 'en');
 
@@ -57,9 +60,13 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    if (loading) return;
-    if (user) redirect('/main');
-  }, [user, loading]);
+    if (user && 'accessToken' in user) {
+      const { accessToken } = user as User;
+      localStorage.setItem('accessToken', accessToken);
+      updateAuthStatus(accessToken);
+      redirect('/main');
+    }
+  }, [user, loading, updateAuthStatus]);
 
   return (
     <div className={styles.login} role="loginForm">
