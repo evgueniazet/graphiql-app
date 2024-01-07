@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["jest"],
+    "types": ["ts-jest"],
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
@@ -23,6 +23,15 @@
       }
     ]
   },
-  "include": ["src", ".next/types/**/*.ts"],
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "include": [
+    "src",
+    ".next/types/**/*.ts",
+    "src/app/page.tsx",
+    "login",
+    "src/app/signup"
+  ],
   "exclude": ["node_modules"]
 }

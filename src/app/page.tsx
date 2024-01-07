@@ -1,95 +1,86 @@
-import Image from 'next/image';
+'use client';
+
 import styles from './page.module.scss';
+import { getWelcomeText } from '../utils/getTexts';
+import { useLanguage } from '../context/LanguageContext/LanguageContext';
 
-export default function Home() {
+export default function Welcome() {
+  const { language } = useLanguage();
+
+  const defaultLanguage = 'en';
+  const welcomeText = getWelcomeText(language || 'en');
+
+  const isClient = typeof window !== 'undefined';
+
+  let languageFromStorage;
+
+  if (isClient) {
+    languageFromStorage = localStorage.getItem('language');
+
+    if (!languageFromStorage) {
+      localStorage.setItem('language', defaultLanguage);
+    }
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <>
+      <main className={styles.main}>
+        <section className={styles.intro_section}>
+          <h1 className={styles.heading1}>{welcomeText.heading1}</h1>
+          <div className={styles.description_container}>
+            <p className={styles.description}>
+              {welcomeText.descriptionProject}
+            </p>
+          </div>
+        </section>
+        <section className={styles.features_section}>
+          <div className={styles.heading3_container}>
+            <h3 className={styles.heading3}>{welcomeText.headingFeatures}</h3>
+          </div>
+          <div className={styles.features_container}>
+            <div className={styles.feature}>
+              <h4 className={styles.heading4}>{welcomeText.secureAuth}</h4>
+              <p className={styles.description_card}>{welcomeText.firstFeat}</p>
+            </div>
+            <div className={styles.feature}>
+              <h4 className={styles.heading4}>{welcomeText.supportAnyApi}</h4>
+              <p className={styles.description_card}>
+                {welcomeText.secondFeat}
+              </p>
+            </div>
+            <div className={styles.feature}>
+              <h4 className={styles.heading4}>{welcomeText.interface}</h4>
+              <p className={styles.description_card}>{welcomeText.thirdFeat}</p>
+            </div>
+          </div>
+        </section>
+        <section className={styles.school_section}>
+          <div className={styles.description_container}>
+            <p className={styles.description}>
+              {welcomeText.descriptionCourse}
+            </p>
+          </div>
+        </section>
+        <section className={styles.features_section}>
+          <div className={styles.heading3_container}>
+            <h3 className={styles.heading3}>{welcomeText.headingTeam}</h3>
+          </div>
+          <div className={styles.developer_container}>
+            <div className={styles.feature}>
+              <h4 className={styles.heading4}>Evguenia Zelenko</h4>
+              <p className={styles.description_card}>
+                {welcomeText.aboutEvgenia}
+              </p>
+            </div>
+            <div className={styles.feature}>
+              <h4 className={styles.heading4}>Julia Holadava</h4>
+              <p className={styles.description_card}>
+                {welcomeText.aboutJulia}
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
