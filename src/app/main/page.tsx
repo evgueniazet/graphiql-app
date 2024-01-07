@@ -190,6 +190,9 @@ const MainPage = () => {
       const query = `
         query IntrospectionQuery {
           __schema {
+            queryType {
+              name
+            }
             types {
               name
               kind
