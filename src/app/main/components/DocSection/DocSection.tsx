@@ -1,15 +1,30 @@
+import { GraphQLSchema, isObjectType } from 'graphql';
 import styles from './DocSection.module.scss';
-import RenderSchema from './RenderSchema';
+import RenderFields from './RenderFields';
 
-type DocSchemaProps<T> = {
-  schemaData: T;
+type DocSectionProps = {
+  schemaAST: GraphQLSchema;
 };
 
-const DocSection = <T,>({ schemaData }: DocSchemaProps<T>) => {
+const DocSection: React.FC<DocSectionProps> = ({ schemaAST }) => {
+  const rootTypes = [
+    schemaAST.getQueryType(),
+    schemaAST.getMutationType(),
+    schemaAST.getSubscriptionType(),
+  ].filter(Boolean);
+
   return (
     <div className={styles.docSection_wrapper}>
       <h3 className={styles.heading}>Documentation</h3>
-      <RenderSchema data={schemaData} />
+      {rootTypes.map(
+        (type) =>
+          type && (
+            <div key={type.name}>
+              <h4 className={styles.heading5}>{type.name} Type</h4>
+              {isObjectType(type) && <RenderFields fields={type.getFields()} />}
+            </div>
+          )
+      )}
     </div>
   );
 };

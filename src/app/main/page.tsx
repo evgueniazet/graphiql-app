@@ -1,6 +1,7 @@
 'use client';
 
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+import { GraphQLSchema, buildClientSchema } from 'graphql';
 import { useRouter } from 'next/navigation';
 import styles from './main.module.scss';
 import CodeEditor from '../../components/CodeEditor';
@@ -56,7 +57,8 @@ const MainPage = () => {
   const [endpoint, setEndpoint] = useState<string>(defaultEndpoint);
   const [isDocOpen, setIsDocOpen] = useState(false);
   const [isSDLFetched, setIsSDLFetched] = useState(false);
-  const [schemaData, setSchemaData] = useState(null);
+  const [, setSchemaData] = useState(null);
+  const [schemaAST, setSchemaAST] = useState<GraphQLSchema | null>(null);
 
   const [tabData, setTabData] = useState<{
     [key: number]: {
@@ -208,47 +210,75 @@ const MainPage = () => {
       const query = `
         query IntrospectionQuery {
           __schema {
+            queryType { name }
+            mutationType { name }
+            subscriptionType { name }
             types {
+              ...FullType
+            }
+            directives {
               name
-              kind
-              fields {
-                name
-                type {
-                  kind
-                  name
-                  ofType {
-                    kind
-                    name
-                    ofType {
-                      kind
-                      name
-                      ...moreNestedTypes
-                    }
-                  }
-                }
+              description
+              locations
+              args {
+                ...InputValue
               }
             }
           }
         }
 
-        fragment moreNestedTypes on __Type {
-          fields {
+        fragment FullType on __Type {
+          kind
+          name
+          description
+          fields(includeDeprecated: true) {
             name
+            description
+            args {
+              ...InputValue
+            }
             type {
+              ...TypeRef
+            }
+            isDeprecated
+            deprecationReason
+          }
+          inputFields {
+            ...InputValue
+          }
+          interfaces {
+            ...TypeRef
+          }
+          enumValues(includeDeprecated: true) {
+            name
+            description
+            isDeprecated
+            deprecationReason
+          }
+          possibleTypes {
+            ...TypeRef
+          }
+        }
+
+        fragment InputValue on __InputValue {
+          name
+          description
+          type { ...TypeRef }
+          defaultValue
+        }
+
+        fragment TypeRef on __Type {
+          kind
+          name
+          ofType {
+            kind
+            name
+            ofType {
               kind
               name
               ofType {
                 kind
                 name
-                ...on __Type {
-                  fields {
-                    name
-                    type {
-                      kind
-                      name
-                    }
-                  }
-                }
               }
             }
           }
@@ -270,15 +300,32 @@ const MainPage = () => {
     }
   }
 
-  const docButtonClick = async () => {
-    if (!isSDLFetched) {
-      try {
-        await fetchSDL();
-      } catch (error) {
-        console.error('Failed to fetch SDL:', error);
-        return;
-      }
+  async function fetchAndBuildSchema() {
+    if (isSDLFetched) {
+      return;
     }
+
+    try {
+      const sdlData = await fetchSDL();
+
+      if (!sdlData || !sdlData.__schema) {
+        throw new Error('Invalid schema data');
+      }
+
+      const schema = buildClientSchema({ __schema: sdlData.__schema });
+      setSchemaAST(schema);
+      setIsSDLFetched(true);
+    } catch (error) {
+      console.error('Error building schema:', error);
+      setIsSDLFetched(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchAndBuildSchema();
+  });
+
+  const docButtonClick = () => {
     setIsDocOpen(!isDocOpen);
   };
 
@@ -293,9 +340,9 @@ const MainPage = () => {
   return (
     <div className={styles.main_container}>
       <div className={styles.main_wrapper_out}>
-        {isDocOpen && isSDLFetched && schemaData && (
+        {isDocOpen && isSDLFetched && schemaAST && (
           <div className={`${styles.docSection} ${styles.docSectionOpened}`}>
-            <DocSection schemaData={schemaData} />
+            <DocSection schemaAST={schemaAST} />
           </div>
         )}
         <div className={styles.main_wrapper}>
