@@ -1,0 +1,44 @@
+{
+  "signin": {
+    "title": "Sign In",
+    "emailPlaceholder": "Email Address",
+    "passwordPlaceholder": "Password",
+    "button": "Sign In"
+  },
+  "signup": {
+    "title": "Sign Up",
+    "emailPlaceholder": "Email Address",
+    "passwordPlaceholder": "Password",
+    "button": "Sign Up"
+  },
+  "welcome": {
+    "heading1": "Welcome to Our GraphiQL Tool!",
+    "descriptionProject": "GraphiQL Playground is a powerful graphical interface for exploring and testing GraphQL queries. Our application offers a unique user experience, combining flexibility and functionality for working with any GraphQL API.",
+    "headingFeatures": "Key Features",
+    "secureAuth": "SECURE AUTHENTICATION",
+    "firstFeat": "Access to the tool is restricted to authorized users, ensuring data security and confidentiality.",
+    "supportAnyApi": "SUPPORT FOR ANY GRAPHQL API",
+    "secondFeat": "Our app is compatible with any open GraphQL API that supports CORS. You can also specify your own endpoint for testing.",
+    "interface": "INTUITIVE INTERFACE",
+    "thirdFeat": "Includes a query editor, variables editor, headers editor, as well as a documentation section and server response viewer.",
+    "descriptionCourse": "This project was developed as part of the React Course of the RS School, which equipped us with the knowledge and skills to build modern web applications. RS School is free-of-charge and community-based education program conducted by The Rolling Scopes developer community since 2013. Everyone can study at RS School, regardless of age, professional employment, or place of residence. The mentors and trainers of our school are front-end and javascript developers from different companies and countries.",
+    "headingTeam": "The Development Team",
+    "aboutEvgenia": "A 27-year-old front-end developer is focused on front-end technologies, new experiences, experiments, and some fun. One of their main life goals is self-improvement. She is curious, persistent, motivated, and systematic, but that doesn't mean she is boring. She strives to be objective and calm, can listen, analyze, discuss, and change her point of view in case her opinion is wrong.",
+    "aboutAlexander": "He is a beginner Frontend developer. He began his training in July 2022 and quickly became enthusiastic about the learning process. He has a strong desire to excel in production development and is intrigued by how the process of creating a product unfolds within teams, involving collaboration, problem-solving, and achieving tangible results. His life experiences and diverse professional background have led him to make a meaningful and well-considered decision to dedicate a significant portion of his life to the field of information technology, approaching it with dedication and thoroughness. He thrives when working in a team, enjoys sharing his experiences, and has a deep passion for both development and self-improvement. His ultimate goal is to become a highly skilled developer and a true professional in his field.",
+    "aboutJulia": "A graduate of BNTU in Environmental Management and Audit, started her IT career as a UI designer before discovering a passion for coding. In December 2022, Julia embarked on her education at Rolling Scope School and has since worked on several projects. Yulia enjoys tackling challenges that transform ideas into real products that people can interact with. She isn't afraid of complex tasks and aspires to work on projects that will stimulate her growth as a professional."
+  },
+  "header": {
+    "buttonSignIn": "Sign In",
+    "buttonSignUp": "Sign Up",
+    "buttonSignOut": "Sign Out",
+    "buttonMainPage": "Main Page"
+  },
+  "footer": {
+    "authors": "Authors"
+  },
+  "main": {
+    "variablesButton": "Variables",
+    "headersButton": "Headers",
+    "doc": "Documentation"
+  }
+}

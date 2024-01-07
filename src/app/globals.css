@@ -1,0 +1,69 @@
+:root {
+  --max-width: 1400px;
+  --border-radius: 12px;
+  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
+    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
+    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+
+  --background-main: #f5f5f5;
+  --background-second: #b4c8dc;
+  --background-editor: #2e3c4e;
+  --background-tab: #4a6a87;
+  --background-tab-hover: #5b7a9e;
+
+  --background-gradient: linear-gradient(to bottom, #4b77be, #6c7a89);
+  --background-start-color: #4b77be;
+  --background-end-color: #6c7a89;
+  --background-footer: #4b5b6e;
+  --background-sticky-header: #3f5f9e;
+
+  --text-main: #333333;
+  --text-secondary: #d4d4d4;
+  --text-accent: #007acc;
+  --text-light: #ffffff;
+
+  --button-main: #4fa1f3;
+  --button-hover: #3d8ec9;
+  --button-active: #3d8ec9;
+  --button-disabled: #a3c2e0;
+
+  --accent-warning: #ffa500;
+
+  --code-keyword: #4fa1f3;
+  --code-string: #fafbfd;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-size: 16px;
+  color: var(--text-light);
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--background-end-color)
+    )
+    var(--background-start-color);
+  justify-content: space-between;
+}
+
+a {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}

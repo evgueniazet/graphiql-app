@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "types": ["ts-jest"],
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "include": [
+    "src",
+    ".next/types/**/*.ts",
+    "src/app/page.tsx",
+    "login",
+    "src/app/signup"
+  ],
+  "exclude": ["node_modules"]
+}
