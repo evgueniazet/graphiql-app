@@ -1,68 +1,59 @@
 import { useState } from 'react';
 import TypeLink from './TypeLink';
-import {
-  GraphQLField,
-  GraphQLSchemaIntrospection,
-  GraphQLType,
-} from './interfaces';
 import styles from './RenderFields.module.scss';
+import {
+  GraphQLArgument,
+  GraphQLField,
+  isObjectType,
+} from 'graphql';
 
 interface RenderFieldsProps {
-  fields: GraphQLField[];
-  schemaData: GraphQLSchemaIntrospection;
+  fields: Record<string, GraphQLField<unknown, unknown>>;
 }
 
-interface FieldType {
-  name: string;
-  type: {
-    name?: string;
-    fields?: GraphQLField[];
-  };
-}
-
-const RenderFields: React.FC<RenderFieldsProps> = ({ fields, schemaData }) => {
+const RenderFields: React.FC<RenderFieldsProps> = ({ fields }) => {
   const [selectedField, setSelectedField] = useState<string | null>(null);
-  const [fieldDetails, setFieldDetails] = useState<GraphQLType | null>(null);
 
-  const handleFieldClick = async (field: FieldType) => {
-    if (selectedField === field.name) {
-      setSelectedField(null);
-      setFieldDetails(null);
-    } else {
-      setSelectedField(field.name);
-      const details =
-        schemaData.__schema.types.find(
-          (type) => type.name === field.type.name
-        ) ?? null;
-      setFieldDetails(details);
-    }
+  const handleFieldClick = (fieldName: string) => {
+    setSelectedField(selectedField === fieldName ? null : fieldName);
   };
 
   return (
     <ul>
-      {fields.map((field) => (
-        <li
-          key={field.name}
-          className={styles.li}
-          onClick={() => handleFieldClick(field)}
-        >
-          <strong>{field.name}</strong>: <TypeLink type={field.type} />
-          {selectedField === field.name && fieldDetails && (
-            <ul>
-              {fieldDetails.fields && (
-                <div>
-                  <strong>Fields:</strong>
-                  <ul>
-                    {fieldDetails.fields.map((detailField) => (
-                      <li key={detailField.name}>{detailField.name}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </ul>
-          )}
-        </li>
-      ))}
+      {Object.keys(fields).map((fieldName) => {
+        const field = fields[fieldName];
+        return (
+          <li
+            key={fieldName}
+            className={styles.li}
+            onClick={() => handleFieldClick(fieldName)}
+          >
+            <strong>{fieldName}</strong>: <TypeLink type={field.type} />
+            {selectedField === fieldName && field.args && (
+              <>
+                {field.args && (
+                  <div className={styles.fields}>
+                    <strong>Arguments:</strong>
+                    <ul>
+                      {field.args.map((arg: GraphQLArgument) => (
+                        <li key={arg.name}>
+                          {arg.name} - <TypeLink type={arg.type} />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {isObjectType(field.type) && (
+                  <div className={styles.fields}>
+                    <strong>Fields:</strong>
+                    <RenderFields fields={field.type.getFields()} />
+                  </div>
+                )}
+              </>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 };
